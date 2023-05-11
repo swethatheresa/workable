@@ -3,13 +3,14 @@
 ## How to configure
 Instructions for setting up project
 
+Clone the repo
+```
+git clone https://github.com/swethatheresa/workable
+```
 To install required packages
-
 ```
 npm install
 ```
-
-
 ## How to Run
 
 In the project directory, you can run:
