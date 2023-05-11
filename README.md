@@ -2,12 +2,11 @@
 
 ## How to configure
 Instructions for setting up project
-
-Clone the repo
+* Clone the repository
 ```
 git clone https://github.com/swethatheresa/workable
 ```
-To install required packages
+* Install the required packages
 ```
 npm install
 ```
