@@ -13,7 +13,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
     <CssBaseline />
-    <EmployerLogin/>
+    <JobPost/>
+    {/* <EmployerLogin/> */}
     </ThemeProvider>
   )
 }

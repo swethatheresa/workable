@@ -36,6 +36,12 @@ function JobPost() {
                     mt: '0.5rem',
                     ml: '1rem',
                   },
+                [theme.breakpoints.down('xs')]: {
+                    width: '4rem',
+                    height: '4rem',
+                    mt: '0.5rem',
+                    ml: '0.5rem',
+                    },
             }}
         />
         </Grid>
@@ -59,6 +65,9 @@ function JobPost() {
                     [theme.breakpoints.down('sm')]: {
                         fontSize: '0.9rem',
                     },
+                    [theme.breakpoints.down('xs')]: {
+                        fontSize: '0.7rem',
+                    },
                 }}
             >
                 ELITE LIMITED
@@ -72,6 +81,9 @@ function JobPost() {
                     },
                     [theme.breakpoints.down('sm')]: {
                         fontSize: '1.3rem',
+                    },
+                    [theme.breakpoints.down('xs')]: {
+                        fontSize: '1.2rem',
                     },
                 }}
             >
@@ -101,6 +113,13 @@ function JobPost() {
                 height: '1.6rem',
                 width: '5rem',
                 borderRadius: '5px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                fontSize: '0.7rem',
+                mt : '-1rem',
+                ml: '6rem',
+                height: '1.4rem',
+                width: '4rem',
             },
             
 

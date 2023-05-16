@@ -1,6 +1,15 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 375,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: { 
     background : {
       default: '#F8F8F8',
@@ -40,6 +49,7 @@ const theme = createTheme({
         }
       }
     },}
+    
 });
 
 export default theme;
