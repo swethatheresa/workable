@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material';
 import { Avatar } from '@mui/material';
 import  companyLogo  from '../assets/companyLogo.png';
 import theme from '../theme';
+import NavBar from './NavBar';
 
 function JobPost() {
   return (
@@ -23,6 +24,8 @@ function JobPost() {
             }
         }}
       >
+        <NavBar/>  
+        
         <Grid item >
         <Avatar variant="square" alt="Company Logo" src={companyLogo} xs={6}
             sx={{
@@ -338,6 +341,8 @@ function JobPost() {
             </Typography>
         </Grid>
       </Grid>
+
+
 
   )
 }
