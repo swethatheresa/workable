@@ -7,13 +7,15 @@ import theme from './theme.jsx';
 import EmployerLogin from './components/EmployerLogin'
 import JobCard from './components/JobCard'
 import MyJobs from './components/MyJobs';
+import Applyform from './components/Applyform';
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <ThemeProvider theme={theme}>
     <CssBaseline />
-    <MyJobs />
+    <Applyform/>
+    <MyJobs /> 
     {/* <JobPost/> */}
     {/* <EmployerLogin/> */}
     </ThemeProvider>
