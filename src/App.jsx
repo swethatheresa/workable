@@ -7,18 +7,23 @@ import theme from './theme.jsx';
 import EmployerLogin from './components/EmployerLogin'
 import JobCard from './components/JobCard'
 import MyJobs from './components/MyJobs';
+import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist';
 import Applyform from './components/Applyform';
 function App() {
   const [count, setCount] = useState(0)
-
-  return (
+  return (<>
     <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Applyform/>
-    <MyJobs /> 
-    {/* <JobPost/> */}
-    {/* <EmployerLogin/> */}
+    <Router>
+      <Routes>
+        <Route path="/" element={<EmployerLogin/>} />
+        <Route path="/jobpost" element={<JobPost/>} />
+        <Route path="/myjobs" element={<MyJobs/>} />
+        <Route path="/applyform" element={<Applyform/>} />
+      </Routes>
+    </Router>
     </ThemeProvider>
+    </>
   )
 }
 

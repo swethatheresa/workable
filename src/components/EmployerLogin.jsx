@@ -5,13 +5,13 @@ import Button from '@mui/material/Button';
 import theme from '../theme';
 import {shadows } from '@mui/system';
 import TextField from '@mui/material/TextField';
-import styled from '@emotion/styled';
+import { Stack } from '@mui/material';
 
 
 const EmployerLogin = () => {
   return (
-    <Grid container>
-        <Grid item md={8} height={100} sx={
+    <Grid container overflow={'auto'} >
+        <Grid item md={8} height={'100vh'} sx={
             {
       
                 backgroundColor: '-moz-initial',
@@ -20,10 +20,11 @@ const EmployerLogin = () => {
         }>
          </Grid>
 
-        <Grid container height={'100vh'} flexDirection={'column'} xs={12} md={4} sx={
-
+        <Grid container height={'100vh'} flexWrap={'nowrap'} flexDirection={'column'}  overflow={'auto'} xs={12} md={4} sx={
+            
         {  
             boxShadow: 20,
+            maxWidth: '100%',
         }} >
             <Typography variant="h3" mt={6} ml={4} fontSize={45} fontWeight={600} color={theme.typography.green} >WorkAble</Typography>
             <Typography variant="h4" mt={10} ml={4} fontSize={25} fontWeight={600} color={theme.typography.heading1} >Login</Typography>
@@ -57,7 +58,7 @@ const EmployerLogin = () => {
                }
          }}>Sign in with google</Button>
 
-         <Typography variant="h3" mt={6} textAlign={'center'} fontSize={18} fontWeight={400} >Don't have an account?<span style={{ color:theme.palette.primary.darker , fontWeight:500, cursor:'pointer' }}> Sign Up </span> </Typography>
+         <Typography variant="body2" mt={6} textAlign={'center'} fontSize={18} fontWeight={400} >Don't have an account?<span style={{ color:theme.palette.primary.darker , fontWeight:500, cursor:'pointer', wordWrap:'break-word',maxWidth:'full' }}> Sign Up </span> </Typography>
            
 
         </Grid>
