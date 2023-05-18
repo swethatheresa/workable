@@ -19,7 +19,7 @@ const NavBar = () => {
 
         
     }}>
-        <Button to="/" sx={{
+        <Button href="/" sx={{
             textDecoration: 'none',
             color: 'primary',
             fontWeight: 600,

@@ -9,6 +9,7 @@ import JobCard from './components/JobCard'
 import MyJobs from './components/MyJobs';
 import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist';
 import Applyform from './components/Applyform';
+import ApplicantDetails from './components/ApplicantDetails';
 function App() {
   const [count, setCount] = useState(0)
   return (<>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/jobpost" element={<JobPost/>} />
         <Route path="/myjobs" element={<MyJobs/>} />
         <Route path="/applyform" element={<Applyform/>} />
+        <Route path="/applicantdetails" element={<ApplicantDetails/>} />
       </Routes>
     </Router>
     </ThemeProvider>
