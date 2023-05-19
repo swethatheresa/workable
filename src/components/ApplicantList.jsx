@@ -1,6 +1,8 @@
 import React from 'react'
 import Grid from '@mui/material/Unstable_Grid2'; 
 import { Checkbox, FormControlLabel, Typography } from '@mui/material';
+import theme from '../theme';
+import Divider from '@mui/material/Divider';
 
 const ApplicantList = () => {
   return (
@@ -11,9 +13,21 @@ const ApplicantList = () => {
             borderRadius: '9px',
             p: '2rem',
             m : '1.5rem',
+            width: '25vw',
+            [theme.breakpoints.down('md')]: {
+                width: '100%',
+                m : '0px',
+                boxShadow: 'none',
+            },
         }}
       >
-        <Typography variant="heading1" sx={{ fontWeight:'bold' }}>
+        <Typography variant="heading1" 
+          sx={{ 
+                fontWeight:'bold',
+                [theme.breakpoints.down('md')]: {
+                    fontSize: '1.5rem',
+                },
+                }}>
             120 Applicants
         </Typography>
         <Grid container spacing={3} direction="row" justifyContent="space-between" wrap="wrap" sx={{mt:'1em'}}>
@@ -32,8 +46,11 @@ const ApplicantList = () => {
         </Grid>
       <Grid container direction="column" justifyContent="space-between" sx={{mt:'1em'}}>
       <Typography variant="heading1" sx={{fontSize:'1.3em'}}>Applicant 1</Typography>
+      <Divider />
       <Typography variant="heading1"sx={{fontSize:'1.3em'}}>Applicant 2</Typography>
+      <Divider />
       <Typography variant="heading1"sx={{fontSize:'1.3em'}}>Applicant 3</Typography>
+      <Divider />
       </Grid>
       </Grid>
   )
