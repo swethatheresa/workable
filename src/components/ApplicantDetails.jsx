@@ -22,7 +22,7 @@ const ApplicantDetails = () => {
         <Applicant />
       {isMediumScreen ? (
         <Grid container>
-          <Button variant="contained" onClick={handleOpenApplicantList} sx={{ml:'1.5em', mb:'1.5em'}}>
+          <Button variant="contained" onClick={handleOpenApplicantList} sx={{ml:'1em', mb:'1.5em'}}>
             Open Applicant List
           </Button>
           <Dialog open={showApplicantList} onClose={handleCloseApplicantList} maxWidth="md" fullWidth>
