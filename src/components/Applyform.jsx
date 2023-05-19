@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Typography, Select, MenuItem, InputLabel } from '@mui/material';
+import { TextField, Button, Grid, Typography, Select, MenuItem } from '@mui/material';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -8,12 +8,8 @@ const Form = () => {
   const [disabilityCategory, setDisabilityCategory] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
-  const [salaryRange, setSalaryRange] = useState('');
   const [experience, setExperience] = useState('');
   const [qualification, setQualification] = useState('');
-  const [applicationDeadline, setApplicationDeadline] = useState('');
-  const [jobApplicationLink, setJobApplicationLink] = useState('');
-  const [jobDescription, setJobDescription] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,12 +21,8 @@ const Form = () => {
     console.log('Disability Category:', disabilityCategory);
     console.log('Email:', email);
     console.log('Address:', address);
-    console.log('Salary Range:', salaryRange);
     console.log('Experience:', experience);
     console.log('Qualification:', qualification);
-    console.log('Application Deadline:', applicationDeadline);
-    console.log('Job Application Link:', jobApplicationLink);
-    console.log('Job Description:', jobDescription);
 
     // Reset form fields
     setName('');
@@ -39,18 +31,14 @@ const Form = () => {
     setDisabilityCategory('');
     setEmail('');
     setAddress('');
-    setSalaryRange('');
     setExperience('');
     setQualification('');
-    setApplicationDeadline('');
-    setJobApplicationLink('');
-    setJobDescription('');
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} padding={15}>
-        <Grid item xs={6}>
+      <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 } }}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Name
           </Typography>
@@ -62,7 +50,7 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Resume Link
           </Typography>
@@ -74,7 +62,7 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Contact Number
           </Typography>
@@ -86,11 +74,12 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Disability Category
           </Typography>
-          <Select className='disabilityselect'
+          <Select
+            className="disabilityselect"
             value={disabilityCategory}
             onChange={(e) => setDisabilityCategory(e.target.value)}
             fullWidth
@@ -102,7 +91,7 @@ const Form = () => {
             <MenuItem value="Category 3">Category 3</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Email
           </Typography>
@@ -114,7 +103,7 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Address
           </Typography>
@@ -126,19 +115,7 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={6}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            Salary Range
-          </Typography>
-          <TextField
-            value={salaryRange}
-            onChange={(e) => setSalaryRange(e.target.value)}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Experience
           </Typography>
@@ -150,7 +127,7 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="subtitle1" fontWeight="bold">
             Qualification
           </Typography>
@@ -162,46 +139,8 @@ const Form = () => {
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            Application Deadline
-          </Typography>
-          <TextField
-            value={applicationDeadline}
-            onChange={(e) => setApplicationDeadline(e.target.value)}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            Job Application Link
-          </Typography>
-          <TextField
-            value={jobApplicationLink}
-            onChange={(e) => setJobApplicationLink(e.target.value)}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            Job Description
-          </Typography>
-          <TextField
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            multiline
-            rows={4}
-          />
-        </Grid>
-        <Grid item container xs={12} justifyContent={'flex-end'} marginTop={5}>
-          <Button variant="contained" color="primary" type="submit" >
+        <Grid item container justifyContent={'flex-end'} xs={12}>
+          <Button variant="contained" color="primary" type="submit">
             Apply
           </Button>
         </Grid>
