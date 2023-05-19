@@ -15,7 +15,9 @@ const Applicant = () => {
             p: '2rem',
             width: '65vw',
             [theme.breakpoints.down('md')]: {
-                width: '90vw'
+                width: '90vw',
+                m : '1em',
+                p: '1rem',
             },
         }}
       >
