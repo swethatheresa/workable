@@ -11,8 +11,8 @@ import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist
 import Applyform from './components/Applyform';
 import ApplicantDetails from './components/ApplicantDetails';
 import CandidateTable from './components/CandidateTable';
+import CompanyForm from "./components/CompanyForm";
 function App() {
-  const [count, setCount] = useState(0)
   return (<>
     <ThemeProvider theme={theme}>
     <CssBaseline />
@@ -24,11 +24,12 @@ function App() {
         <Route path="/applyform" element={<Applyform/>} />
         <Route path="/applicantdetails" element={<ApplicantDetails/>} />
         <Route path="/candidatetable" element={<CandidateTable/>} />
+        <Route path="/companyform" element={<CompanyForm />} />
       </Routes>
     </Router>
     </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
