@@ -29,7 +29,6 @@ function App() {
             <Route path="/companyform" element={<CompanyForm />} />
           </Routes>
         </Router>
-        <CompanyForm />
       </ThemeProvider>
     </>
   );
