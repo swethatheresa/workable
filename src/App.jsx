@@ -12,6 +12,8 @@ import Applyform from './components/Applyform';
 import ApplicantDetails from './components/ApplicantDetails';
 import CandidateTable from './components/CandidateTable';
 import CompanyForm from "./components/CompanyForm";
+import Home from "./components/Home";
+
 function App() {
   return (<>
     <ThemeProvider theme={theme}>
@@ -19,6 +21,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<EmployerLogin/>} />
+        <Route path="/home" element={<Home />} />
         <Route path="/jobpost" element={<JobPost/>} />
         <Route path="/myjobs" element={<MyJobs/>} />
         <Route path="/applyform" element={<Applyform/>} />
