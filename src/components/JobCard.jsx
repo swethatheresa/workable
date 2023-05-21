@@ -16,6 +16,7 @@ const JobCard = ({
       sx={{
         margin: "1.5rem auto",
         borderRadius: "10px",
+        minWidth: "80%",
         [theme.breakpoints.up("sm")]: {
           maxWidth: "70%",
         },
@@ -64,61 +65,64 @@ const JobCard = ({
               >
                 {title}
               </Typography>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "0.5rem",
-                  right: "0.5rem",
-                  [theme.breakpoints.down("md")]: {
-                    top: "0.3rem",
-                    right: "0.3rem",
-                  },
-                  [theme.breakpoints.down("sm")]: {
-                    top: "0.2rem",
-                    right: "0.2rem",
-                  },
-                  [theme.breakpoints.down("xs")]: {
-                    top: "0.2rem",
-                    right: "0.2rem",
-                  },
-                }}
-              >
-                <Chip
-                  label={applicationStatus}
-                  variant="outlined"
+              {applicationStatus && (
+                <Box
                   sx={{
-                    backgroundColor: "#E3E9FF",
-                    color: "#4668E0",
-                    fontSize: "0.9rem",
-                    marginTop: "0.9rem",
+                    position: "absolute",
+                    top: "0.5rem",
+                    right: "0.5rem",
                     [theme.breakpoints.down("md")]: {
-                      fontSize: "0.7rem",
-                      marginTop: "0.65rem",
-                      height: "0.8rem"
+                      top: "0.3rem",
+                      right: "0.3rem",
                     },
                     [theme.breakpoints.down("sm")]: {
-                      fontSize: "0.6rem",
-                      height: "0.7rem"
+                      top: "0.2rem",
+                      right: "0.2rem",
                     },
                     [theme.breakpoints.down("xs")]: {
-                      fontSize: "0.5rem",
-                      height: "0.9rem"
+                      top: "0.2rem",
+                      right: "0.2rem",
                     },
                   }}
-                />
-              </Box>
+                >
+                  <Chip
+                    label={applicationStatus}
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "#E3E9FF",
+                      color: "#4668E0",
+                      fontSize: "0.9rem",
+                      marginTop: "0.9rem",
+                      [theme.breakpoints.down("md")]: {
+                        fontSize: "0.7rem",
+                        marginTop: "0.65rem",
+                        height: "0.8rem"
+                      },
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "0.6rem",
+                        height: "0.7rem"
+                      },
+                      [theme.breakpoints.down("xs")]: {
+                        fontSize: "0.5rem",
+                        height: "0.9rem"
+                      },
+                    }}
+                  />
+                </Box>
+              )}
             </Box>
             <Typography
               variant="body1"
               sx={{
                 fontSize: "1rem",
-                maxWidth: "35%",
+                maxWidth: "35rem",
                 mt: "0.5rem",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 [theme.breakpoints.down("md")]: {
                   fontSize: "0.9rem",
+                  maxWidth: "100px"
                 },
                 [theme.breakpoints.down("sm")]: {
                   fontSize: "0.8rem",
