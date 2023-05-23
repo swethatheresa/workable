@@ -13,11 +13,13 @@ import ApplicantDetails from './components/ApplicantDetails';
 import CandidateTable from './components/CandidateTable';
 import CompanyForm from "./components/CompanyForm";
 import Home from "./components/Home";
+import { AuthContextProvider } from './context/AuthContext';
 
 function App() {
   return (<>
     <ThemeProvider theme={theme}>
     <CssBaseline />
+    <AuthContextProvider>
     <Router>
       <Routes>
         <Route path="/" element={<EmployerLogin/>} />
@@ -30,6 +32,7 @@ function App() {
         <Route path="/companyform" element={<CompanyForm />} />
       </Routes>
     </Router>
+    </AuthContextProvider>
     </ThemeProvider>
     </>
   );
