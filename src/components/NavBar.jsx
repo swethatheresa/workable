@@ -19,7 +19,7 @@ const NavBar = () => {
 
         
     }}>
-        <Button to="/" sx={{
+        <Button href="/home" sx={{
             textDecoration: 'none',
             color: 'primary',
             fontWeight: 600,
@@ -31,7 +31,7 @@ const NavBar = () => {
             
         }}>WorkAble</Button>
         <Box  rowGap={'10px'} >
-         <Button variant='outlined' size='small' sx={{
+         <Button href="/" variant='outlined' size='small' sx={{
           py: -1,
           height: '2rem',
           [theme.breakpoints.down('sm')]: {
@@ -41,7 +41,7 @@ const NavBar = () => {
          }}>
           Log in
          </Button>
-         <Button variant='contained' size='small' sx={{
+         <Button href="/" variant='contained' size='small' sx={{
           py: -1,
           ml: 4,
           [theme.breakpoints.down('sm')]: {
