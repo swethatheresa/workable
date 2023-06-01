@@ -47,7 +47,7 @@ const CandidateTable = () => {
        >
         <TabContext value={value} flexDirection={'column'}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={handleChange} aria-label="lab API tabs example">
+                <TabList onChange={handleChange} aria-label="Application status of candidates">
                 <Tab label="All" value="1" />
                 <Tab label="Accepted" value="2" />
                 <Tab label="Rejected" value="3" />
