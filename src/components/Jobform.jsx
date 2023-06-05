@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography, Select, MenuItem } from '@mui/material';
+import { UserAuth } from "../context/AuthContext";
+import { addJobDetails } from "../services/JobDetails";
 
 const Form = () => {
   const [JobTitle, setJobTitle] = useState('');
@@ -12,22 +14,26 @@ const Form = () => {
   const [experience, setExperience] = useState('');
   const [qualification, setQualification] = useState('');
   const [jobDescription, setJobDescription] = useState('');
+  const {user} = UserAuth();
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     // Handle form submission logic here
-    console.log('Job Title:', JobTitle);
-    console.log('Job Location:', JobLocation);
-    console.log('Salary Range:', SalaryRange);
-    console.log('Disability Category:', disabilityCategory);
-    console.log('Job Type:', JobType);
-    console.log('Application Deadline:', ApplicationDeadline);
-    console.log('Number of Openings:', NumberofOpenings);
-    console.log('Experience:', experience);
-    console.log('Qualification:', qualification);
-    console.log('Job Description:', jobDescription);
+    const job = {
+      JobTitle,
+      JobLocation,
+      SalaryRange,
+      disabilityCategory,
+      JobType,
+      ApplicationDeadline,
+      NumberofOpenings,
+      experience,
+      qualification,
+      jobDescription,
+    }
+    await addJobDetails(job,user.uid);
+    console.log(job);
 
 
     // Reset form fields
