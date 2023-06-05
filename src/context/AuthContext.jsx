@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+    const [user, setUser] = useState({});
 
 
     const createUser = (email, password) => {
@@ -59,23 +60,18 @@ export const AuthContextProvider = ({ children }) => {
                 
         });
     }
-    const checkLogin = () => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-              const uid = user.uid;
-              console.log(uid);
-              // ...
-            } else {
-              // User is signed out
-              // ...
-            }
-          });
-    }
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+         console.log(user);
+         setUser(user);
+         });
+         return () => {
+             unsubscribe();
+         }
+     }, [])
 
     return (
-        <UserContext.Provider value={{ createUser ,loginUser,logoutUser,checkLogin,loginGoogle}}>
+        <UserContext.Provider value={{ createUser ,loginUser,logoutUser,loginGoogle,user}}>
             {children}
         </UserContext.Provider>
     );
