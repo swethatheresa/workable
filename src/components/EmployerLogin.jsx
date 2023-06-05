@@ -15,7 +15,7 @@ const EmployerLogin = () => {
     const [login, setLogin] = useState(true);
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-    const {createUser,loginUser,checkLogin,loginGoogle} = UserAuth();
+    const {createUser,loginUser,loginGoogle} = UserAuth();
 
     const handleSignup = async(e) => {
         e.preventDefault();
