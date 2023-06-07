@@ -9,6 +9,7 @@ import JobCard from './components/JobCard'
 import MyJobs from './components/MyJobs';
 import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist';
 import Applyform from './components/Applyform';
+import JobForm from './components/JobForm';
 
 import ApplicantDetails from './components/ApplicantDetails';
 import CandidateTable from './components/CandidateTable';
@@ -28,11 +29,11 @@ function App() {
         <Route path="/jobpost" element={<JobPost/>} />
         <Route path="/myjobs" element={<MyJobs/>} />
         <Route path="/applyform" element={<Applyform/>} />
-
+        <Route path="/jobcard" element={<JobCard/>} />
         <Route path="/applicantdetails" element={<ApplicantDetails/>} />
         <Route path="/candidatetable" element={<CandidateTable/>} />
         <Route path="/companyform" element={<CompanyForm />} />
-
+        <Route path="/jobform" element={<JobForm />} />
       </Routes>
     </Router>
     </AuthContextProvider>

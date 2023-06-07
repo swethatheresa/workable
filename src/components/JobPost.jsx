@@ -6,7 +6,23 @@ import  companyLogo  from '../assets/companyLogo.png';
 import theme from '../theme';
 import NavBar from './NavBar';
 
-function JobPost() {
+
+function JobPost() { 
+    // add jobData as props
+    const jobData = {
+        company: 'ELITE LIMITED',
+        jobTitle: 'Figma Designer',
+        postedDate: '15th March 2021',
+        applicantsCount: 39,
+        openingsCount: 10,
+        jobDescription:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry...',
+        disabilityCategories: 'Hearing Impairment', 
+        jobLocation: 'Kochi, Kerala, India',
+        experienceLevel: '2-3 years',
+        qualificationLevel: 'Bachelors Degree',
+        salary: 'INR 3,00,000 - 4,00,000 PA.',
+      };
   return (
       <Grid container spacing={3}
         sx={{
@@ -73,7 +89,7 @@ function JobPost() {
                     },
                 }}
             >
-                ELITE LIMITED
+                {jobData.company}
             </Typography>
             <Typography lg={12} variant="heading1" 
                 sx={{ 
@@ -90,7 +106,7 @@ function JobPost() {
                     },
                 }}
             >
-                Figma Designer
+                {jobData.jobTitle}
             </Typography>
         </Grid>
         <Button variant="contained" sx={{
@@ -145,7 +161,7 @@ function JobPost() {
                 [theme.breakpoints.down('sm')]: {
                     fontSize: '0.8rem',
                 },
-            }}> Posted on 15th March 2021  • 39 Applicants • 10 Openings </Typography>
+            }}> Posted on {jobData.postedDate}  • {jobData.applicantsCount} Applicants • {jobData.openingsCount} Openings </Typography>
             <Typography lg={12} variant="heading1" sx={{
                 fontWeight: 'bold',
                 fontSize: '1.5rem',
@@ -161,11 +177,7 @@ function JobPost() {
                     },
                 }}
             >
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen 
-            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently 
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                {jobData.jobDescription}
             </Typography>
             <Typography lg={12} variant="heading1" sx={{
                 fontWeight: 'bold',
@@ -193,7 +205,7 @@ function JobPost() {
                         fontSize: '0.8rem',
                     },
                 }}>
-                    Hearing Impairment
+                    {jobData.disabilityCategories}
                 </Typography>
                 <Typography sx={{
                     backgroundColor: 'secondary.main',
@@ -209,7 +221,7 @@ function JobPost() {
                         fontSize: '0.8rem',
                     },
                 }}>
-                    Speech Impairment
+                    {jobData.disabilityCategories}
                 </Typography>
                 <Typography sx={{
                     backgroundColor: 'secondary.main',
@@ -225,7 +237,7 @@ function JobPost() {
                         fontSize: '0.8rem',
                     },
                 }}>
-                    Learning Disability
+                    {jobData.disabilityCategories}
                 </Typography>
             </Grid>  
             <Typography lg={12} variant="heading1" sx={{
@@ -243,7 +255,7 @@ function JobPost() {
                     },
                 }}
             >
-                Kochi, Kerala, India
+                {jobData.jobLocation}
             </Typography>
             <Typography lg={12} variant="heading1" sx={{
                 fontWeight: 'bold',
@@ -260,7 +272,7 @@ function JobPost() {
                     },
                 }}
             >
-            2-3 years
+            {jobData.experienceLevel}
             </Typography>
             <Typography lg={12} variant="heading1" sx={{
                 fontWeight: 'bold',
@@ -277,28 +289,7 @@ function JobPost() {
                     },
                 }}
             >
-            Bachelors Degree
-            </Typography>
-            <Typography lg={12} variant="heading1" sx={{
-                fontWeight: 'bold',
-                fontSize: '1.5rem',
-                mt: '1rem',
-                [theme.breakpoints.down('sm')]: {
-                    fontSize: '1rem',
-                },
-            }}>Roles and Responsibilities</Typography>
-            <Typography lg={12} variant="heading2" 
-                sx={{
-                    [theme.breakpoints.down('sm')]: {
-                        fontSize: '0.8rem',
-                    },
-                }}
-            >
-            Develop and maintain AI chatbot applications using Python and related frameworks.
-            Design and implement efficient algorithms and data structures to support chatbot functionality, including natural language understanding and generation.
-            Collaborate with cross-functional teams, including UX/UI designers, data scientists, and backend engineers, to define and implement chatbot features and enhancements.
-            Integrate chatbot solutions with external APIs and third-party services to enhance functionality and extend capabilities.
-            Optimize chatbot performance through code refactoring, performance tuning, and system architecture improvements.
+            {jobData.qualificationLevel}
             </Typography>
             <Typography lg={12} variant="heading1" sx={{
                 fontWeight: 'bold',
@@ -315,29 +306,7 @@ function JobPost() {
                     },
                 }}
             >
-            INR 3,00,000 - 4,00,000 PA.
-            </Typography>
-            <Typography lg={12} variant="heading1" sx={{
-                fontWeight: 'bold',
-                fontSize: '1.5rem',
-                mt: '1rem',
-                [theme.breakpoints.down('sm')]: {
-                    fontSize: '1rem',
-                },
-            }}>Additional Information</Typography>
-            <Typography lg={12} variant="heading2" 
-                sx={{
-                    [theme.breakpoints.down('sm')]: {
-                        fontSize: '0.8rem',
-                    },
-                }}
-            >
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been 
-            the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of 
-            type and scrambled it to make a type specimen book. It has survived not only five centuries, but also 
-            the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 
-            1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently 
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            {jobData.salary}
             </Typography>
         </Grid>
       </Grid>
