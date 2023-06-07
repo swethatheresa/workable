@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography, Select, MenuItem } from '@mui/material';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from 'moment/moment'
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -15,10 +10,6 @@ const Form = () => {
   const [address, setAddress] = useState('');
   const [experience, setExperience] = useState('');
   const [qualification, setQualification] = useState('');
-  const [salaryRange, setSalaryRange] = useState(0)
-  const [applicationDeadline, setApplicationDeadline] = useState('')
-  const [jobApplicationLink, setJobApplicationLink] = useState('')
-  const [jobDescription, setJobDescription] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,63 +33,55 @@ const Form = () => {
     setAddress('');
     setExperience('');
     setQualification('');
-    setSalaryRange('')
-    setApplicationDeadline('')
-    setJobApplicationLink('')
-    setJobDescription('')
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 } }}>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Name
-          </Typography> */}
+          </Typography>
           <TextField
             value={name}
             onChange={(e) => setName(e.target.value)}
             fullWidth
-            label="Name"
             margin="normal"
             variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Resume Link
-          </Typography> */}
+          </Typography>
           <TextField
             value={resumeLink}
             onChange={(e) => setResumeLink(e.target.value)}
             fullWidth
-            label="Resume Link"
             margin="normal"
             variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Contact Number
-          </Typography> */}
+          </Typography>
           <TextField
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
             fullWidth
-            label="Contact Number"
             margin="normal"
             variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Disability Category
-          </Typography> */}
+          </Typography>
           <Select
             className="disabilityselect"
             value={disabilityCategory}
             onChange={(e) => setDisabilityCategory(e.target.value)}
-            label="Disablity category"
             fullWidth
             margin="normal"
             variant="outlined"
@@ -109,115 +92,51 @@ const Form = () => {
           </Select>
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Email
-          </Typography> */}
+          </Typography>
           <TextField
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             fullWidth
-            label="Email"
             margin="normal"
             variant="outlined"
           />
         </Grid>
-
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Address
-          </Typography> */}
+          </Typography>
           <TextField
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             fullWidth
-            label="Address"
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item sm={6} xs={12}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
-            Salary Range
-          </Typography> */}
-          <TextField
-            value={salaryRange}
-            onChange={(e) => setSalaryRange(e.target.value)}
-            fullWidth
-            label="Salary Range"
-            type='number'
             margin="normal"
             variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+          <Typography variant="subtitle1" fontWeight="bold">
             Experience
-          </Typography> */}
+          </Typography>
           <TextField
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
             fullWidth
-            label="Experience"
             margin="normal"
             variant="outlined"
           />
         </Grid>
-        <Grid item xs={12} sm={12}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
+        <Grid item xs={12} sm={6}>
+          <Typography variant="subtitle1" fontWeight="bold">
             Qualification
-          </Typography> */}
+          </Typography>
           <TextField
             value={qualification}
             onChange={(e) => setQualification(e.target.value)}
             fullWidth
-            label="Qualification"
             margin="normal"
             variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
-            Application Deadline
-          </Typography> */}
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <DatePicker label="Application Deadline"
-              onChange={(date) => {
-                // const standardDate = new Date(date._t)
-                // const formattedDate = moment(standardDate).format('YYYY-MM-DD')
-                setApplicationDeadline(date._d);
-                console.log(date._d)
-              }}
-              fullWidth
-              sx={{ width: '100%'}}
-            />
-          </LocalizationProvider>
-        </Grid>
-        <Grid item xs={12}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
-            Job Application Link
-          </Typography> */}
-          <TextField
-            value={jobApplicationLink}
-            onChange={(e) => setJobApplicationLink(e.target.value)}
-            fullWidth
-            label="Job Application Link"
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          {/* <Typography variant="subtitle1" fontWeight="bold">
-            Job Description
-          </Typography> */}
-          <TextField
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            fullWidth
-            label="Job Description"
-            margin="normal"
-            variant="outlined"
-            multiline
-            rows={4}
           />
         </Grid>
         <Grid item container justifyContent={'flex-end'} xs={12}>
