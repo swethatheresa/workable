@@ -9,7 +9,7 @@ import JobCard from './components/JobCard'
 import MyJobs from './components/MyJobs';
 import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist';
 import Applyform from './components/Applyform';
-import JobForm from './components/JobForm';
+import JobForm from './components/Jobform';
 
 import ApplicantDetails from './components/ApplicantDetails';
 import CandidateTable from './components/CandidateTable';
