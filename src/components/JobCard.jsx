@@ -1,16 +1,37 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Chip, useTheme } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Chip,
+  useTheme,
+} from "@mui/material";
 
-const JobCard = ({
-  companyLogo,
-  title,
-  description,
-  disabilities,
-  jobTypes,
-  applicationStatus,
-}) => {
+const JobCard = ({ job }) => {
   const theme = useTheme();
 
+  console.log(job);
+
+  const {
+    // companyLogo,
+    JobTitle,
+    jobDescription,
+    disabilityCategory,
+    JobType,
+    NumberofOpenings,
+    SalaryRange,
+    experience,
+    numberofapplicants,
+    posted_date,
+    qualification,
+    userid,
+    JobLocation,
+    applicationStatus,
+  } = job;
+  
+  const companyLogo = "../assets/images/CompanyLogo.png";
+  
   return (
     <Card
       sx={{
@@ -20,7 +41,7 @@ const JobCard = ({
         [theme.breakpoints.up("sm")]: {
           maxWidth: "70%",
         },
-        position: "relative", 
+        position: "relative",
       }}
     >
       <CardContent>
@@ -63,7 +84,7 @@ const JobCard = ({
                   },
                 }}
               >
-                {title}
+                {JobTitle}
               </Typography>
               {applicationStatus && (
                 <Box
@@ -96,15 +117,15 @@ const JobCard = ({
                       [theme.breakpoints.down("md")]: {
                         fontSize: "0.7rem",
                         marginTop: "0.65rem",
-                        height: "0.8rem"
+                        height: "0.8rem",
                       },
                       [theme.breakpoints.down("sm")]: {
                         fontSize: "0.6rem",
-                        height: "0.7rem"
+                        height: "0.7rem",
                       },
                       [theme.breakpoints.down("xs")]: {
                         fontSize: "0.5rem",
-                        height: "0.9rem"
+                        height: "0.9rem",
                       },
                     }}
                   />
@@ -122,7 +143,7 @@ const JobCard = ({
                 whiteSpace: "nowrap",
                 [theme.breakpoints.down("md")]: {
                   fontSize: "0.9rem",
-                  maxWidth: "100px"
+                  maxWidth: "100px",
                 },
                 [theme.breakpoints.down("sm")]: {
                   fontSize: "0.8rem",
@@ -134,34 +155,22 @@ const JobCard = ({
                 },
               }}
             >
-              {description}
+              {jobDescription}
             </Typography>
             <Box display="flex" alignItems="center" marginTop={1}>
-              {disabilities.map((disability, index) => (
-                <Chip
-                  key={index}
-                  label={disability}
-                  sx={{
-                    marginRight: "0.5rem",
-                    backgroundColor: "#CAFFCF",
-                    borderRadius: 3,
-                    [theme.breakpoints.down("md")]: {
-                      height: "1rem",
-                      fontSize: "0.9rem",
-                    },
-                    [theme.breakpoints.down("sm")]: {
-                      height: "0.9rem",
-                      fontSize: "0.7rem",
-                      marginLeft: "0.6rem",
-                    },
-                    [theme.breakpoints.down("xs")]: {
-                      height: "0.7rem",
-                      fontSize: "0.6rem",
-                      marginLeft: "0rem",
-                    },
-                  }}
-                />
-              ))}
+              {Array.isArray(disabilityCategory) &&
+                disabilityCategory.map((disability, index) => (
+                  <Chip
+                    key={index}
+                    label={disability}
+                    sx={{
+                      marginRight: "0.5rem",
+                      backgroundColor: "#CAFFCF",
+                      borderRadius: 3,
+                      // Rest of the styles...
+                    }}
+                  />
+                ))}
             </Box>
             <Box
               display="flex"
@@ -194,7 +203,7 @@ const JobCard = ({
                   },
                 }}
               >
-                {jobTypes.join(" | ")}
+                {JobType} | {JobLocation} | {NumberofOpenings} Openings | {SalaryRange} | {experience}
               </Typography>
             </Box>
           </Box>
