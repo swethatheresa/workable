@@ -4,6 +4,8 @@ import { useState } from "react";
 import NavBar from "./NavBar";
 import { UserAuth } from "../context/AuthContext";
 import { addCompanyDetails } from "../services/CompanyDetails";
+import { resizeFile } from "../services/Resize";
+import { addCompanyLogo } from "../services/CompanyDetails";
 
 
 function CompanyForm() {
@@ -12,7 +14,7 @@ function CompanyForm() {
   const [address, setAddress] = useState("");
   const [numberOfEmployees, setNumberOfEmployees] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
-  const [logo, setLogo] = useState("");
+  const [logo, setLogo] = useState(null);
   const {user} = UserAuth();
 
   const handleSubmit = async(e) => {
@@ -23,6 +25,10 @@ function CompanyForm() {
       numberOfEmployees,
       websiteUrl,
       logo,
+    }
+    if(logo){ 
+      company.logo=await addCompanyLogo(logo,user.uid);
+      
     }
     await addCompanyDetails(company,user.uid);
     console.log(company);
@@ -122,14 +128,27 @@ function CompanyForm() {
                 >
                   <Button variant="outlined" component="label">
                     Upload Logo
-                    <input type="file" hidden />
+                    <input type="file" hidden onChange={async(e)=>{
+                      const file = e.target.files[0];
+                      const img = await resizeFile(file);
+                      setLogo(img);
+                    }} />
                   </Button>
+                  
                 </Box>
+               
               </Grid>
+              <Grid container display="flex" flexDirection='column' flexWrap='nowrap' alignItems='center' rowSpacing='10px' mt='10px'>
+                  <Grid item >
+                  {logo && (
+                    <img src={URL.createObjectURL(logo)} alt="uploadedlogo" width={100} height={100} />
+                  )}
+                  </Grid>
               <Grid item xs={12} textAlign="center">
                 <Button variant="contained" color="primary" type='submit'>
                   Submit
                 </Button>
+                </Grid>
               </Grid>
             </Grid>
           </form>
