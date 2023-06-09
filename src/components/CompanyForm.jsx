@@ -6,6 +6,7 @@ import { UserAuth } from "../context/AuthContext";
 import { addCompanyDetails } from "../services/CompanyDetails";
 import { resizeFile } from "../services/Resize";
 import { addCompanyLogo } from "../services/CompanyDetails";
+import { updateCompanyDetails } from "../services/CompanyDetails";
 
 
 function CompanyForm() {
@@ -31,6 +32,7 @@ function CompanyForm() {
       
     }
     await addCompanyDetails(company,user.uid);
+    await updateCompanyDetails(company);
     console.log(company);
   };
 
