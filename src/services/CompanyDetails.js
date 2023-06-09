@@ -2,6 +2,8 @@ import { db } from "../firebase";
 import { collection, updateDoc,doc,setDoc } from "firebase/firestore";
 import { storage } from "../firebase";
 import {ref,getDownloadURL,uploadBytes} from "firebase/storage";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../firebase";
 
 export const addCompanyDetails = async (data,userid) => {
     const docRef = doc(db, "employers", userid);
@@ -35,5 +37,19 @@ export const addCompanyDetails = async (data,userid) => {
             console.log("url",url);
             return url;
     }
+
+    export const updateCompanyDetails = async (data) => {
+         updateProfile(auth.currentUser, {
+            displayName: data.companyName,
+            photoURL: data.logo,
+          }).then(() => {
+            // Profile updated!
+            // ...
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          });
+        }
+
 
 
