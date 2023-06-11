@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid, Chip, Box, useTheme } from '@mui/material';
 import {Edit as EditIcon} from '@mui/icons-material';
+import {Delete as DeleteIcon} from '@mui/icons-material';
 const CardExample = (props) => {
   const theme = useTheme();
 
@@ -16,7 +17,8 @@ const CardExample = (props) => {
               Posted on {props.posted_date} 
             </Typography>
           </Grid>
-          <EditIcon sx={{marginTop:-2, marginLeft:'auto',height:'20px',cursor:'pointer'}}/>
+          <EditIcon sx={{marginTop:-2, marginLeft:'auto',cursor:'pointer'}}/>
+          <DeleteIcon sx={{marginTop:-2,cursor:'pointer'}}/>
         </Grid>
 
         <Grid container alignItems="center" justifyContent="space-between">
