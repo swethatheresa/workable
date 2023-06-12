@@ -6,7 +6,6 @@ import theme from '../theme';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CustomTable from './CustomTable';
-import { fetchApplicants } from '../services/Applicants';
 
 const CandidateTable = () => {
     const [value, setValue] = useState('1');
@@ -43,8 +42,8 @@ const CandidateTable = () => {
                 </TabList>
             </Box>
             <TabPanel value="1"><CustomTable /></TabPanel>
-            <TabPanel value="2"><CustomTable /></TabPanel>
-            <TabPanel value="3"><CustomTable /></TabPanel>
+            <TabPanel value="2"><CustomTable status={"Accepted"}/></TabPanel>
+            <TabPanel value="3"><CustomTable status={"Rejected"}/></TabPanel>
         </TabContext>
        </Grid>
     </Grid>
