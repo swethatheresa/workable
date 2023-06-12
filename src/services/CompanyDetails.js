@@ -44,6 +44,7 @@ export const addCompanyDetails = async (data,userid) => {
             photoURL: data.logo,
           }).then(() => {
             // Profile updated!
+            console.log("Profile updated!");
             // ...
           }).catch((error) => {
             // An error occurred
