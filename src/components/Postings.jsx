@@ -83,6 +83,7 @@ const Postings = () => {
       {results && results.map((result, index) => (
         <Card
           key={index}
+          id={result.id}
           JobTitle={result.JobTitle}
           JobLocation={result.JobLocation}
           posted_date={result.posted_date.toDate().toDateString()}
