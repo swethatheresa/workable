@@ -2,8 +2,10 @@ import { AppBar,Box, Button } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import theme from '../theme';
+import { UserAuth } from '../context/AuthContext';
 
 const NavBar = () => {
+  const {user,logoutUser} = UserAuth();
   return (
     <AppBar color='default' sx={{
         boxShadow: 'none',
@@ -30,7 +32,7 @@ const NavBar = () => {
 
             
         }}>WorkAble</Button>
-        <Box  rowGap={'10px'} >
+        {!user? <Box  rowGap={'10px'} >
          <Button href="/" variant='outlined' size='small' sx={{
           py: -1,
           height: '2rem',
@@ -54,7 +56,16 @@ const NavBar = () => {
          Sign up
          </Button>
         
-        </Box> 
+        </Box>:<Button onClick={()=>{logoutUser()}}variant='outlined' size='small' sx={{
+          py: -1,
+          height: '2rem',
+          [theme.breakpoints.down('sm')]: {
+            fontSize: '0.8rem',
+            height: '1.5rem',
+          },
+         }}>
+          Log Out
+         </Button>}
     </AppBar>
   )
 }

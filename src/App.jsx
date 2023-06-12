@@ -16,15 +16,18 @@ import CandidateTable from './components/CandidateTable';
 import CompanyForm from "./components/CompanyForm";
 import Home from "./components/Home";
 import { AuthContextProvider } from './context/AuthContext';
+import ProtectedRoutes from './routes/ProtectedRoutes';
 
 function App() {
   return (<>
     <ThemeProvider theme={theme}>
     <CssBaseline />
     <AuthContextProvider>
+    
     <Router>
+    <ProtectedRoutes>
       <Routes>
-        <Route path="/" element={<EmployerLogin/>} />
+        <Route path="/login" element={<EmployerLogin/>} />
         <Route path="/home" element={<Home />} />
         <Route path="/jobpost" element={<JobPost/>} />
         <Route path="/myjobs" element={<MyJobs/>} />
@@ -35,7 +38,9 @@ function App() {
         <Route path="/companyform" element={<CompanyForm />} />
         <Route path="/jobform" element={<JobForm />} />
       </Routes>
+      </ProtectedRoutes>
     </Router>
+   
     </AuthContextProvider>
     </ThemeProvider>
     </>
