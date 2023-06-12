@@ -2,8 +2,14 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, Chip, Box, useTheme } from '@mui/material';
 import {Edit as EditIcon} from '@mui/icons-material';
 import {Delete as DeleteIcon} from '@mui/icons-material';
+import { deleteJobDetails } from '../services/JobDetails';
 const CardExample = (props) => {
   const theme = useTheme();
+
+  const handleDelete = () => {
+    deleteJobDetails(props.id); 
+    props.removeDeletedItem(props.id); 
+  };
 
   return (
     <Card sx={{  height:'fit-content', width: 350,padding:1 ,borderRadius:4 ,margin:1}}>
@@ -18,7 +24,7 @@ const CardExample = (props) => {
             </Typography>
           </Grid>
           <EditIcon sx={{marginTop:-2, marginLeft:'auto',cursor:'pointer'}}/>
-          <DeleteIcon sx={{marginTop:-2,cursor:'pointer'}}/>
+          <DeleteIcon onClick={handleDelete} sx={{marginTop:-2,cursor:'pointer'}}/>
         </Grid>
 
         <Grid container alignItems="center" justifyContent="space-between">
