@@ -54,6 +54,10 @@ const Postings = () => {
     }
   };
 
+  const removeDeletedItem = (itemId) => {
+    setResults(prevResults => prevResults.filter(result => result.id !== itemId));
+  };
+
 
   return (
     <Grid container flexDirection='column'mt={9} alignItems="center" justifyContent="center">
@@ -91,6 +95,7 @@ const Postings = () => {
           numberofapplicants={result.numberofapplicants}
           ApplicationDeadline={result.ApplicationDeadline.toDate().toDateString()}
           workmode={result.workmode}
+          removeDeletedItem={removeDeletedItem}
         />
       ))}
       {loading ? (

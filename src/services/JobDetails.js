@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, addDoc,serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, deleteDoc, doc } from "firebase/firestore";
 
 export const addJobDetails = async (data,user) => {
     const collectionRef = collection(db, "joblistings");
@@ -28,3 +28,7 @@ export const addJobDetails = async (data,user) => {
     });
 
     }
+
+export const deleteJobDetails = async (id,user) => {
+    await deleteDoc(doc(db, "joblistings", id));
+}
