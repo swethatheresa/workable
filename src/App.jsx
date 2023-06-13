@@ -23,8 +23,9 @@ function App() {
     <AuthContextProvider>
    
     <Router>
-    <NavBar/>
+    
     <ProtectedRoutes>
+    <NavBar/>
       <Routes>
         <Route path="/login" element={<EmployerLogin/>} />
         <Route path="/" element={<EmployerLogin/>} />
