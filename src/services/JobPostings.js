@@ -3,7 +3,7 @@ import { db } from "../firebase";
 const ref = collection(db, 'joblistings'); 
 
 const field = 'posted_date';
-const pageSize = 1;
+const pageSize = 10;
 
 
 const fetchInitialPage = async (userid) => {
