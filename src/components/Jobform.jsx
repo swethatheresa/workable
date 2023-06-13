@@ -5,6 +5,7 @@ import { addJobDetails } from "../services/JobDetails";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import theme from '../theme';
 
 const Form = () => {
   const [JobTitle, setJobTitle] = useState('');
@@ -57,16 +58,25 @@ const Form = () => {
 
   return (<>
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 ,m:3} }}>
+      <Grid container spacing={3} 
+        sx={{ 
+         padding: { xs: 3, sm: 15 },
+          [theme.breakpoints.down('xs')]: {
+            padding: 3,
+          },
+          }}>
+      
+      <Grid item xs={12} sm={12} sx={{ width: '100%' }}>
       <Typography variant="subtitle1" fontWeight="bold" 
       sx={{
         fontSize : '1.5em',
-        m:'0.7em'
+        mt: 5,
       }}
       >
-          Post a New Job
+        Post a New Job
       </Typography>
-        <Grid item xs={12} sm={12}>
+      </Grid>
+        <Grid item sm={12} sx={{ width: '100%'}}>
           <TextField
             value={JobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
@@ -78,7 +88,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <TextField
             value={JobLocation}
             onChange={(e) => setJobLocation(e.target.value)}
@@ -90,7 +100,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}sx={{ width: '100%' }} >
           <TextField
             value={SalaryRange}
             onChange={(e) => setSalaryRange(e.target.value)}
@@ -103,7 +113,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={12} sx={{ width: '100%' }}>
             <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Disability Category *</InputLabel>
             <Select
@@ -141,7 +151,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Job Type *</InputLabel>
             <Select
@@ -161,7 +171,7 @@ const Form = () => {
 
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}sx={{ width: '100%' }}>
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker label="Application Deadline"
               onChange={(date) => {
@@ -176,7 +186,7 @@ const Form = () => {
           </LocalizationProvider>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Work Mode *</InputLabel>
             <Select
@@ -195,7 +205,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <TextField
             value={NumberofOpenings}
             onChange={(e) => setNumberofOpenings(e.target.value)}
@@ -207,7 +217,7 @@ const Form = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Experience *</InputLabel>
             <Select
@@ -226,7 +236,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Qualification *</InputLabel>
             <Select
@@ -245,7 +255,7 @@ const Form = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ width: '100%' }}>
           <TextField
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
