@@ -65,7 +65,7 @@ const Postings = () => {
       <Typography variant="heading1" fontWeight={'bold'} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
         My Job Postings
       </Typography>
-      <Grid container alignItems="center" justifyContent="center" m={2} xs={12} sm={6}>
+      <Grid item alignItems="center" justifyContent="center" m={2} xs={12} sm={6}>
         <TextField
             variant="outlined"
             label="Search"
