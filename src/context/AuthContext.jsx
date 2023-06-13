@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
 
 
 
@@ -67,14 +67,16 @@ export const AuthContextProvider = ({ children }) => {
         });
     }
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-         console.log(user);
-         setUser(user);
-         });
-         return () => {
-             unsubscribe();
-         }
-     }, [])
+       onAuthStateChanged(auth, (user) => {
+            if (user) {
+              setUser(user);
+            } else {
+              setUser(null);
+            }
+          }
+        );
+    
+     }, [user])
 
     return (
         <UserContext.Provider value={{ createUser ,loginUser,logoutUser,loginGoogle,user}}>
