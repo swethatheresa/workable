@@ -55,7 +55,7 @@ const Form = () => {
     setWorkMode('');
   };
 
-  return (
+  return (<>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 ,m:3} }}>
       <Typography variant="subtitle1" fontWeight="bold" 
@@ -266,6 +266,7 @@ const Form = () => {
         </Grid>
       </Grid>
     </form>
+  </>
   );
 };
 

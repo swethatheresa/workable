@@ -60,6 +60,7 @@ const Postings = () => {
 
 
   return (
+    <>
     <Grid container flexDirection='column'mt={9} alignItems="center" justifyContent="center">
       <Typography variant="heading1" fontWeight={'bold'} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
         My Job Postings
@@ -84,7 +85,7 @@ const Postings = () => {
           />
       </Grid>
       <Grid container alignItems="center" justifyContent="center" marginBottom={2} >
-      {results && results.map((result, index) => (
+      {results.length>0 ? results.map((result, index) => (
         <Card
           key={index}
           id={result.id}
@@ -97,7 +98,7 @@ const Postings = () => {
           workmode={result.workmode}
           removeDeletedItem={removeDeletedItem}
         />
-      ))}
+      )):<Typography fontSize={22} color={'gray'} mt={10}>No Postings Added, Click on Add Posting!</Typography>}
       {loading ? (
         <Grid container alignItems={'center'} justifyContent={'center'} m={5}>
           <CircularProgress size={40}/>
@@ -109,7 +110,7 @@ const Postings = () => {
       )}
       </Grid>
     </Grid>
-  );
+    </>);
 };
 
 export default Postings;

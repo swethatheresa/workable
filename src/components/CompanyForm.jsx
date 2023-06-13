@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Typography, TextField, Button, Grid, useTheme } from "@mui/material";
 import { useState } from "react";
-import NavBar from "./NavBar";
 import { UserAuth } from "../context/AuthContext";
 import { addCompanyDetails } from "../services/CompanyDetails";
 import { resizeFile } from "../services/Resize";
 import { addCompanyLogo } from "../services/CompanyDetails";
 import { updateCompanyDetails } from "../services/CompanyDetails";
+import { useNavigate } from "react-router-dom";
 
 
 function CompanyForm() {
@@ -17,8 +17,10 @@ function CompanyForm() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [logo, setLogo] = useState(null);
   const {user} = UserAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async(e) => {
+    
     e.preventDefault();
     const company = {
       companyName,
@@ -33,12 +35,12 @@ function CompanyForm() {
     }
     await addCompanyDetails(company,user.uid);
     await updateCompanyDetails(company);
+    navigate('/postings');
     console.log(company);
   };
 
   return (
     <>
-      <NavBar />
       <Box
         sx={{
           display: "flex",
