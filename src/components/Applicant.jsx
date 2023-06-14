@@ -7,6 +7,7 @@ import { fetchApplicant } from '../services/Applicants';
 const Applicant = () => {
   const [applicant, setApplicant] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [status,setStatus] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -49,9 +50,21 @@ const Applicant = () => {
         <Typography variant="heading1" sx={{ fontWeight: 'bold' }}>
           {applicant.name}
         </Typography>
-        <Button variant="contained" sx={{ fontSize: '1em', width: '8em', borderRadius: '10px' }}>
-          Shortlist
-        </Button>
+        <FormControl sx={{width:"200px"}}>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <MenuItem value={"ShortList"}>ShortList</MenuItem>
+              <MenuItem value={"WaitList"}>WaitList</MenuItem>
+              <MenuItem value={"Selected"}>Selected</MenuItem>
+              <MenuItem value={"Not Selected"}>Not Selected</MenuItem>
+            </Select>
+          </FormControl>
       </Grid>
       <Typography variant="heading2">Applied on {applicant.appliedDate.toDate().toDateString()}</Typography>
       <Typography variant="heading1" sx={{ mt: '1em', fontWeight: 'bold', fontSize: '1.1em' }}>
