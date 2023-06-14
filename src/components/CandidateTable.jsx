@@ -37,13 +37,17 @@ const CandidateTable = () => {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange} aria-label="lab API tabs example">
                 <Tab label="All" value="1" />
-                <Tab label="Accepted" value="2" />
-                <Tab label="Rejected" value="3" />
+                <Tab label="Selected" value="2" />
+                <Tab label="Not Selected" value="3" />
+                <Tab label="Shortlisted" value="4" />
+                <Tab label="Waitlisted" value="5" />
                 </TabList>
             </Box>
             <TabPanel value="1"><CustomTable /></TabPanel>
-            <TabPanel value="2"><CustomTable status={"Accepted"}/></TabPanel>
-            <TabPanel value="3"><CustomTable status={"Rejected"}/></TabPanel>
+            <TabPanel value="2"><CustomTable status={"Selected"}/></TabPanel>
+            <TabPanel value="3"><CustomTable status={"Not Selected"}/></TabPanel>
+            <TabPanel value="4"><CustomTable status={"Shortlist"}/></TabPanel>
+            <TabPanel value="5"><CustomTable status={"Waitlist"}/></TabPanel>
         </TabContext>
        </Grid>
     </Grid>

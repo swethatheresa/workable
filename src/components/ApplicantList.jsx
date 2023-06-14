@@ -30,18 +30,26 @@ const ApplicantList = () => {
                 }}>
             120 Applicants
         </Typography>
-        <Grid container spacing={3} direction="row" justifyContent="space-between" wrap="wrap" sx={{mt:'1em'}}>
+        <Grid container spacing={2} direction="row" justifyContent="space-between" wrap="wrap" sx={{mt:'1em'}}>
                 <FormControlLabel
                 control={<Checkbox />}
+                label="Selected"
+            />
+            <FormControlLabel
+                control={<Checkbox />}
+                label="Not Selected"
+            />
+            <FormControlLabel
+                control={<Checkbox />}
+                label="Shortlisted"
+            />
+            <FormControlLabel
+                control={<Checkbox />}
+                label="Waitlisted"
+            />
+            <FormControlLabel
+                control={<Checkbox />}
                 label="Unmarked"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Accepted"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Rejected"
             />
         </Grid>
       <Grid container direction="column" justifyContent="space-between" sx={{mt:'1em'}}>
