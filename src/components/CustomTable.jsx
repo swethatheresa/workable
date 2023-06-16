@@ -7,15 +7,26 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import theme from '../theme';
-import { fetchApplicants } from '../services/Applicants';
+import { fetchApplicants,fetchApplicantsByStatus } from '../services/Applicants';
 
-const CustomTable = ({data}) => {
+const CustomTable = (data) => {
   const [applicants, setApplicants] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
       setLoading(true);
-      fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+      if(data.status)
+      {
+        fetchApplicantsByStatus('Cmmm4zvXxrFt74x1CtdQ',data.status).then((res) => {
           setApplicants(res);
+        });
+      }
+      else 
+      {
+        fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+          setApplicants(res);
+        });
+      }
+      fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
       });
   }, []);
   useEffect(() => {

@@ -1,4 +1,14 @@
-import { collection, orderBy, getDocs, query, where, getDoc , doc} from 'firebase/firestore';
+import { 
+  collection, 
+  orderBy, 
+  getDocs, 
+  query, 
+  where, 
+  getDoc , 
+  doc, 
+  getCountFromServer,
+  updateDoc
+} from 'firebase/firestore';
 import { db } from "../firebase";
 const ref = collection(db, 'applicants'); 
 
@@ -29,4 +39,17 @@ export const fetchApplicant = async (id) => {
     }
     return null; 
   };
+
+export const getCountOfApplicants = async (jobid) => {
+    const q = query(ref,where("joblistingId", "==", jobid));
+    const snapshot = await getCountFromServer(q);
+    return snapshot.data().count;    
+}
+
+export const changeStatus = async (id,status) => {
+    const docRef = doc(db, 'applicants', id);
+    await updateDoc(docRef, {
+        status: status
+    });
+}
   
