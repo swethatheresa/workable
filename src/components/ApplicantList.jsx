@@ -63,26 +63,27 @@ const ApplicantList = (data) => {
             value={data.status}
             onChange={(e) => {
                 const selectedStatus = e.target.value;
-                if (selectedStatus === 'Unmarked')
+                if (selectedStatus === 'All')
                 {
-                    fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+                    fetchApplicants(data.jobid).then((res) => {
                         setApplicants(res);
                     });
                 }
                 else
                 {
-                    fetchApplicantsByStatus('Cmmm4zvXxrFt74x1CtdQ',selectedStatus).then((res) => {
+                    fetchApplicantsByStatus(data.jobid,selectedStatus).then((res) => {
                         setApplicants(res);
                     });
                 }
 
             }}
         >
+            <FormControlLabel value="All" control={<Radio />} label="All" />
             <FormControlLabel value="Selected" control={<Radio />} label="Selected" />
             <FormControlLabel value="Not Selected" control={<Radio />} label="Not Selected" />
             <FormControlLabel value="Shortlist" control={<Radio />} label="Shortlisted" />
             <FormControlLabel value="Waitlist" control={<Radio />} label="Waitlisted" />
-            <FormControlLabel value="Unmarked" control={<Radio />} label="Unmarked" />
+            <FormControlLabel value="Applied" control={<Radio />} label="Unmarked" />
         </RadioGroup>
         </Grid>
       <Grid container spacing={2} direction="column" justifyContent="space-between" sx={{mt:'1em'}}>

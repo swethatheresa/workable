@@ -1,5 +1,18 @@
-import React from 'react';
-import { Card, CardContent, Typography, Grid, Chip, Box, useTheme } from '@mui/material';
+import React, {useState} from 'react';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Chip,
+  Box,
+  useTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from '@mui/material';
 import {Edit as EditIcon} from '@mui/icons-material';
 import {Delete as DeleteIcon} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +20,13 @@ import { deleteJobDetails } from '../services/JobDetails';
 
 const CardExample = (props) => {
   const theme = useTheme();
+  const [openConfirmation, setOpenConfirmation] = useState(false);
   const navigate = useNavigate();
 
   const handleDelete = () => {
     deleteJobDetails(props.id); 
     props.removeDeletedItem(props.id); 
+    setOpenConfirmation(false);
   };
 
   const handleEdit =() => {
@@ -38,8 +53,8 @@ const CardExample = (props) => {
               Posted on {props.posted_date} 
             </Typography>
           </Grid>
-          <EditIcon onClick={()=>{handleEdit()}} sx={{marginTop:-2, marginLeft:'auto',cursor:'pointer'}}/>
-          <DeleteIcon onClick={handleDelete} sx={{marginTop:-2,cursor:'pointer'}}/>
+          <EditIcon onClick={()=>{handleEdit()}} sx={{marginTop:-2, marginLeft:'auto',marginRight:'15px',cursor:'pointer'}}/>
+          <DeleteIcon onClick={() => setOpenConfirmation(true)} sx={{marginTop:-2,cursor:'pointer'}}/>
         </Grid>
 
         <Grid container alignItems="center" justifyContent="space-between">
@@ -138,6 +153,18 @@ const CardExample = (props) => {
             </Typography>
           </Grid>
         </Grid>
+        <Dialog open={openConfirmation} onClose={() => setOpenConfirmation(false)}>
+          <DialogTitle fontWeight={'bold'}>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1">Are you sure you want to delete this item?</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenConfirmation(false)}>Cancel</Button>
+            <Button onClick={handleDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </CardContent>
     </Card>
   );

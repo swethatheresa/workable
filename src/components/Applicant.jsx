@@ -8,7 +8,11 @@ import {
   FormControl, 
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 import theme from '../theme';
 import { fetchApplicant, changeStatus } from '../services/Applicants';
@@ -17,6 +21,20 @@ const Applicant = (data) => {
   const [applicant, setApplicant] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState('');
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+    setOpenConfirmation(true);
+  };
+  const handleConfirmStatusChange = () => {
+    changeStatus(data.applicantid, status);
+    setOpenConfirmation(false);
+  };
+
+  const handleCloseConfirmation = () => {
+    setOpenConfirmation(false);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -67,8 +85,7 @@ const Applicant = (data) => {
               value={status}
               onChange={(e) => 
                 {
-                  setStatus(e.target.value);
-                  changeStatus(data.applicantid,e.target.value);
+                  handleStatusChange(e.target.value);
                 }
               }>
               <MenuItem value={"Shortlist"}>ShortList</MenuItem>
@@ -83,6 +100,14 @@ const Applicant = (data) => {
         Contact Number
       </Typography>
       <Typography variant="heading2">{applicant.contactNumber}</Typography>
+      <Typography variant="heading1" sx={{ fontWeight: 'bold', fontSize: '1.1em' }}>
+        Date of Birth
+      </Typography>
+      <Typography variant="heading2">{applicant.dob}</Typography>
+      <Typography variant="heading1" sx={{fontWeight: 'bold', fontSize: '1.1em' }}>
+        Gender
+      </Typography>
+      <Typography variant="heading2">{applicant.gender}</Typography>
       <Typography variant="heading1" sx={{ fontWeight: 'bold', fontSize: '1.1em' }}>
         Email
       </Typography>
@@ -138,6 +163,19 @@ const Applicant = (data) => {
       <Link rel="noopener noreferrer" href={applicant.resumeLink} target="_blank">
       <Typography variant="heading2">{applicant.resumeLink}</Typography>
       </Link>
+      {/* Confirmation Dialog */}
+      <Dialog open={openConfirmation} onClose={handleCloseConfirmation}>
+        <DialogTitle fontWeight={'bold'}>Confirm Status Change</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">Are you sure you want to change the applicant status?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmation} color="error">Cancel</Button>
+          <Button onClick={handleConfirmStatusChange} >
+            Change
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };
