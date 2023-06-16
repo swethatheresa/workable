@@ -15,6 +15,7 @@ export const AuthContextProvider = ({ children }) => {
        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        setUser(user);
         console.log(user);
         resolve(true)
         // ...
@@ -31,7 +32,8 @@ export const AuthContextProvider = ({ children }) => {
         .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        setUser(user);
+        //console.log(user);
         resolve(true)
         // ...
         })
@@ -47,7 +49,8 @@ export const AuthContextProvider = ({ children }) => {
             .then((result) => {
             // The signed-in user info.
             const user = result.user;
-            console.log(user);
+            setUser(user);
+           // console.log(user);
             resolve(true)
             // ...
             }).catch((error) => {
@@ -67,15 +70,13 @@ export const AuthContextProvider = ({ children }) => {
         });
     }
     useEffect(() => {
-       onAuthStateChanged(auth, (user) => {
-            if (user) {
-              setUser(user);
-            } else {
-              setUser(null);
-            }
-          }
-        );
-    
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+         console.log(user);
+         setUser(user);
+         });
+         return () => {
+             unsubscribe();
+         }
      }, [user])
 
     return (

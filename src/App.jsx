@@ -34,6 +34,7 @@ function App() {
         <Route path="/candidatetable" element={<CandidateTable/>} />
         <Route path="/companyform" element={<CompanyForm />} />
         <Route path="/jobform" element={<JobForm />} />
+        <Route path ='/editposting/:id' element={<JobForm/>}/>
       </Routes>
       </ProtectedRoutes>
     </Router>

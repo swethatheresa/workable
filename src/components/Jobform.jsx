@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { TextField, Button, Grid, Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { UserAuth } from "../context/AuthContext";
 import { addJobDetails } from "../services/JobDetails";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useLocation,useNavigate, useParams } from 'react-router-dom';
+import { fetchDocument, updateDocument } from '../services/JobPostings';
+import moment from 'moment';
+import dayjs from 'dayjs';
 
 const Form = () => {
   const [JobTitle, setJobTitle] = useState('');
@@ -12,13 +16,40 @@ const Form = () => {
   const [SalaryRange, setSalaryRange] = useState(0);
   const [disabilityCategory, setDisabilityCategory] = useState([]);
   const [JobType, setJobType] = useState('');
-  const [ApplicationDeadline, setApplicationDeadline] = useState('');
+  const [ApplicationDeadline, setApplicationDeadline] = useState();
   const [NumberofOpenings, setNumberofOpenings] = useState(0);
   const [experience, setExperience] = useState('');
   const [qualification, setQualification] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [workMode, setWorkMode] = useState('');
+  const [editPost , setEditPost] = useState(false);
+  const [testdate, setTestdate] = useState('');
   const {user} = UserAuth();
+  //check if params are passed
+  const route = useParams();
+
+  useEffect(() => {
+  if(Object.keys(route).length !== 0)
+    setEditPost(true);
+    console.log(route);
+    fetchDocument(route.id).then((doc) => {
+      console.log(doc);
+      setJobTitle(doc.JobTitle);
+      setJobLocation(doc.JobLocation);
+      setSalaryRange(doc.SalaryRange);
+      setDisabilityCategory(doc.disabilityCategory);
+      setJobType(doc.JobType);
+      const apoldate = moment(doc.ApplicationDeadline.toDate()).format('YYYY-MM-DD');
+    console.log(apoldate);
+      setApplicationDeadline(apoldate);
+      setNumberofOpenings(doc.NumberofOpenings);
+      setExperience(doc.experience);
+      setQualification(doc.qualification);
+      setJobDescription(doc.jobDescription);
+      setWorkMode(doc.workMode);
+    })
+  },[])
+
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -36,8 +67,14 @@ const Form = () => {
       qualification,
       jobDescription,
       workMode,
+      testdate
     }
-    await addJobDetails(job,user);
+    if(!editPost)
+      await addJobDetails(job,user);
+    else 
+      await updateDocument(route.id,job)
+      
+
     console.log(job);
 
 
@@ -58,14 +95,22 @@ const Form = () => {
   return (<>
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 ,m:3} }}>
-      <Typography variant="subtitle1" fontWeight="bold" 
+      {!editPost?<Typography variant="subtitle1" fontWeight="bold" 
       sx={{
         fontSize : '1.5em',
         m:'0.7em'
       }}
       >
           Post a New Job
-      </Typography>
+      </Typography>:
+      <Typography variant="subtitle1" fontWeight="bold" 
+      sx={{
+        fontSize : '1.5em',
+        m:'0.7em'
+      }}
+      >
+          Edit Job
+      </Typography>}
         <Grid item xs={12} sm={12}>
           <TextField
             value={JobTitle}
@@ -86,6 +131,12 @@ const Form = () => {
             required
             label="Job Location"
             variant="outlined"
+          />
+          <TextField type='date'
+            value={testdate}
+            onChange={(e) =>{ setTestdate(e.target.value)
+              console.log(testdate)}
+            }
           />
         </Grid>
 
@@ -161,20 +212,18 @@ const Form = () => {
 
 
 
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker label="Application Deadline"
-              onChange={(date) => {
-                // const standardDate = new Date(date._t)
-                // const formattedDate = moment(standardDate).format('YYYY-MM-DD')
-                setApplicationDeadline(date._d);
-                console.log(date._d)
-              }}
+            format='DD-MM-YYYY'
+            
+            onChange={(newValue) => setApplicationDeadline(newValue)}
+              value = {dayjs(ApplicationDeadline).format('DD-MM-YYYY')}
               fullWidth
               sx={{ width: '100%'}}
             />
           </LocalizationProvider>
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
@@ -260,9 +309,11 @@ const Form = () => {
 
         
         <Grid item container justifyContent={'flex-end'} xs={12}>
-          <Button variant="contained" color="primary" type="submit">
+          {editPost?<Button variant="contained" color="primary" type="submit">
+            Edit Job
+          </Button>:<Button variant="contained" color="primary" type="submit">
             Post Job
-          </Button>
+          </Button>}
         </Grid>
       </Grid>
     </form>

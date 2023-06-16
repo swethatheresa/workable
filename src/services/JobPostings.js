@@ -1,4 +1,4 @@
-import { collection, query, orderBy, startAfter, limit, getDocs,where, QuerySnapshot} from 'firebase/firestore';
+import { collection, query, orderBy, startAfter, limit, getDocs,where, QuerySnapshot,doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from "../firebase";
 const ref = collection(db, 'joblistings'); 
 
@@ -53,5 +53,25 @@ const searchNextDocuments = async (userid, searchValue, lastDocument) =>{
     const newLastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
     return { matchingDocuments, newLastDocument };
 }
+const fetchDocument = async (id) => {
+  const docRef = doc(db, 'joblistings', id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log('No such document!');
+  }
+};
 
-export { fetchInitialPage, fetchNextPage, searchDocuments, searchNextDocuments };
+const updateDocument = async (id, data) => {
+  const docRef = doc(db, 'joblistings', id);
+  const docSnap = await updateDoc(docRef, data);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log('No such document!');
+  }
+};
+
+
+export { fetchInitialPage, fetchNextPage, searchDocuments, searchNextDocuments,fetchDocument,updateDocument };

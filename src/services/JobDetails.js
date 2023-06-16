@@ -14,12 +14,13 @@ export const addJobDetails = async (data,user) => {
         jobDescription: data.jobDescription,
         experience: data.experience,
         qualification: data.qualification,
-        workmode: data.workMode,     
+        workMode: data.workMode,     
         posted_date: serverTimestamp(), 
         numberofapplicants: 0,  
         userid: user.uid,
         companyname: user.displayName,   
         companylogo: user.photoURL,
+        testdate: data.testdate,
     }).then(()=>{
         console.log("Document added");
     }

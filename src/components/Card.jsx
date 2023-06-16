@@ -2,15 +2,24 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, Chip, Box, useTheme } from '@mui/material';
 import {Edit as EditIcon} from '@mui/icons-material';
 import {Delete as DeleteIcon} from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { deleteJobDetails } from '../services/JobDetails';
+
 const CardExample = (props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handleDelete = () => {
     deleteJobDetails(props.id); 
     props.removeDeletedItem(props.id); 
   };
 
+  const handleEdit =() => {
+    
+    navigate(`/editposting/${props.id}`)
+    console.log("Edit");
+
+  };
   return (
     <Card sx={{  height:'fit-content', width: 350,padding:1 ,borderRadius:4 ,margin:1}}>
       <CardContent>
@@ -23,7 +32,7 @@ const CardExample = (props) => {
               Posted on {props.posted_date} 
             </Typography>
           </Grid>
-          <EditIcon sx={{marginTop:-2, marginLeft:'auto',cursor:'pointer'}}/>
+          <EditIcon onClick={()=>{handleEdit()}} sx={{marginTop:-2, marginLeft:'auto',cursor:'pointer'}}/>
           <DeleteIcon onClick={handleDelete} sx={{marginTop:-2,cursor:'pointer'}}/>
         </Grid>
 

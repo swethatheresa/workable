@@ -50,6 +50,7 @@ const Postings = () => {
     } else {
       const { nextPageResults, newLastDocument } = await fetchNextPage(user.uid, lastDocument);
       setResults((prevResults) => [...prevResults, ...nextPageResults]);
+      
       setLastDocument(newLastDocument);
     }
   };
