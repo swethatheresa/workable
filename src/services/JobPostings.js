@@ -66,11 +66,6 @@ const fetchDocument = async (id) => {
 const updateDocument = async (id, data) => {
   const docRef = doc(db, 'joblistings', id);
   const docSnap = await updateDoc(docRef, data);
-  if (docSnap.exists()) {
-    return docSnap.data();
-  } else {
-    console.log('No such document!');
-  }
 };
 
 

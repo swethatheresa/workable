@@ -2,13 +2,14 @@ import React, { useState,useEffect } from 'react';
 import { TextField, Button, Grid, Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { UserAuth } from "../context/AuthContext";
 import { addJobDetails } from "../services/JobDetails";
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useLocation,useNavigate, useParams } from 'react-router-dom';
 import { fetchDocument, updateDocument } from '../services/JobPostings';
 import moment from 'moment';
 import dayjs from 'dayjs';
+import { Timestamp } from 'firebase/firestore';
 
 const Form = () => {
   const [JobTitle, setJobTitle] = useState('');
@@ -16,6 +17,7 @@ const Form = () => {
   const [SalaryRange, setSalaryRange] = useState(0);
   const [disabilityCategory, setDisabilityCategory] = useState([]);
   const [JobType, setJobType] = useState('');
+  
   const [ApplicationDeadline, setApplicationDeadline] = useState();
   const [NumberofOpenings, setNumberofOpenings] = useState(0);
   const [experience, setExperience] = useState('');
@@ -25,6 +27,7 @@ const Form = () => {
   const [editPost , setEditPost] = useState(false);
   const [testdate, setTestdate] = useState('');
   const {user} = UserAuth();
+  const navigate = useNavigate();
   //check if params are passed
   const route = useParams();
 
@@ -39,9 +42,10 @@ const Form = () => {
       setSalaryRange(doc.SalaryRange);
       setDisabilityCategory(doc.disabilityCategory);
       setJobType(doc.JobType);
-      const apoldate = moment(doc.ApplicationDeadline.toDate()).format('YYYY-MM-DD');
+     const apoldate = new Timestamp(doc.ApplicationDeadline.seconds,doc.ApplicationDeadline.nanoseconds).toDate();
+     const appldate = dayjs(apoldate)
     console.log(apoldate);
-      setApplicationDeadline(apoldate);
+      setApplicationDeadline(appldate);
       setNumberofOpenings(doc.NumberofOpenings);
       setExperience(doc.experience);
       setQualification(doc.qualification);
@@ -71,9 +75,10 @@ const Form = () => {
     }
     if(!editPost)
       await addJobDetails(job,user);
-    else 
+    else {
       await updateDocument(route.id,job)
-      
+      navigate('/postings')
+    }
 
     console.log(job);
 
@@ -132,12 +137,12 @@ const Form = () => {
             label="Job Location"
             variant="outlined"
           />
-          <TextField type='date'
+          {/* <TextField type='date'
             value={testdate}
             onChange={(e) =>{ setTestdate(e.target.value)
               console.log(testdate)}
             }
-          />
+          /> */}
         </Grid>
 
 
@@ -212,18 +217,21 @@ const Form = () => {
 
 
 
-        {/* <Grid item xs={12} sm={6}>
-          <LocalizationProvider dateAdapter={AdapterMoment}>
+        <Grid item xs={12} sm={6}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker label="Application Deadline"
             format='DD-MM-YYYY'
-            
-            onChange={(newValue) => setApplicationDeadline(newValue)}
-              value = {dayjs(ApplicationDeadline).format('DD-MM-YYYY')}
+            value={dayjs(ApplicationDeadline)}
+            onChange={(e) =>{ 
+              //convert to timestamp firestore
+              setApplicationDeadline(dayjs(e).toDate())
+              console.log(dayjs(ApplicationDeadline).toDate())
+            }}
               fullWidth
               sx={{ width: '100%'}}
             />
           </LocalizationProvider>
-        </Grid> */}
+        </Grid>
 
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
