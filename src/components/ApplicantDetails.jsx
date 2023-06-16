@@ -9,7 +9,7 @@ const ApplicantDetails = () => {
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const [showApplicantList, setShowApplicantList] = useState(false);
-  const {id1,id2} = useParams();
+  const { id1 , id2 } = useParams();
   const handleOpenApplicantList = () => {
     setShowApplicantList(true);
   };
@@ -26,7 +26,7 @@ const ApplicantDetails = () => {
           <Button variant="contained" onClick={handleOpenApplicantList} sx={{ml:'1em', mb:'1.5em'}}>
             Open Applicant List
           </Button>
-          <Dialog open={showApplicantList} onClose={handleCloseApplicantList} maxWidth="md" fullWidth>
+          <Dialog open={showApplicantList} onClose={handleCloseApplicantList} p={3} maxWidth="md" fullWidth>
             <DialogTitle>Applicant List</DialogTitle>
             <DialogContent>
               <ApplicantList jobid={id1}/>
