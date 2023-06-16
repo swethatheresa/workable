@@ -1,12 +1,31 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Grid from '@mui/material/Unstable_Grid2'; 
-import { Checkbox, FormControlLabel, Typography } from '@mui/material';
+import { RadioGroup, Radio, FormControlLabel, Typography } from '@mui/material';
 import theme from '../theme';
 import Divider from '@mui/material/Divider';
+import {getCountOfApplicants,fetchApplicants, fetchApplicantsByStatus} from '../services/Applicants';
 
-const ApplicantList = () => {
-  return (
-    <Grid container flexDirection={'column'}
+const ApplicantList = (data) => {
+    const [count,setCount] = useState(0);
+    const [applicants, setApplicants] = useState(null);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        getCountOfApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+            setCount(res);
+        });
+        fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+            setApplicants(res);
+        });
+    }, []);
+    useEffect(() => {
+        if (applicants) {
+            setLoading(false);
+        }
+    }, [applicants]);
+
+    return (
+    <Grid container flexDirection={'column'} overflow={'auto'}
         sx={{
             backgroundColor: '#FFFFFF',
             boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.05)',
@@ -28,37 +47,45 @@ const ApplicantList = () => {
                     fontSize: '1.5rem',
                 },
                 }}>
-            120 Applicants
+            {`${count} Applicants`}
         </Typography>
         <Grid container spacing={2} direction="row" justifyContent="space-between" wrap="wrap" sx={{mt:'1em'}}>
-                <FormControlLabel
-                control={<Checkbox />}
-                label="Selected"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Not Selected"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Shortlisted"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Waitlisted"
-            />
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Unmarked"
-            />
+        <RadioGroup
+            row
+            aria-label="status"
+            name="status"
+            value={data.status}
+            onChange={(e) => {
+                const selectedStatus = e.target.value;
+                if (selectedStatus === 'Unmarked')
+                {
+                    fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+                        setApplicants(res);
+                    });
+                }
+                else
+                {
+                    fetchApplicantsByStatus('Cmmm4zvXxrFt74x1CtdQ',selectedStatus).then((res) => {
+                        setApplicants(res);
+                    });
+                }
+
+            }}
+        >
+            <FormControlLabel value="Selected" control={<Radio />} label="Selected" />
+            <FormControlLabel value="Not Selected" control={<Radio />} label="Not Selected" />
+            <FormControlLabel value="Shortlist" control={<Radio />} label="Shortlisted" />
+            <FormControlLabel value="Waitlist" control={<Radio />} label="Waitlisted" />
+            <FormControlLabel value="Unmarked" control={<Radio />} label="Unmarked" />
+        </RadioGroup>
         </Grid>
-      <Grid container direction="column" justifyContent="space-between" sx={{mt:'1em'}}>
-      <Typography variant="heading1" sx={{fontSize:'1.3em'}}>Applicant 1</Typography>
-      <Divider />
-      <Typography variant="heading1"sx={{fontSize:'1.3em'}}>Applicant 2</Typography>
-      <Divider />
-      <Typography variant="heading1"sx={{fontSize:'1.3em'}}>Applicant 3</Typography>
-      <Divider />
+      <Grid container spacing={2} direction="column" justifyContent="space-between" sx={{mt:'1em'}}>
+       {applicants && applicants.map((applicant, index) => (
+            <React.Fragment key={index}>
+                <Typography variant="heading1" sx={{ fontSize: '1.3em', cursor:'pointer' }}>{applicant.name}</Typography>
+                <Divider />
+            </React.Fragment>
+        ))}
       </Grid>
       </Grid>
   )
