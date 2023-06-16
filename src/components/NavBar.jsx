@@ -45,7 +45,7 @@ const NavBar = () => {
 
         
     }}> <Box rowGap={'10px'} >
-            <Button href="/postings" sx={{
+            <Button component={Link} to='/postings' sx={{
                 color: 'primary',
                
                 fontWeight: 600,
@@ -57,7 +57,7 @@ const NavBar = () => {
 
                 
             }}>WorkAble</Button>
-            <Button href='/postings' sx={{marginLeft:'40px',
+            <Button component={Link} to='/postings' sx={{marginLeft:'40px',
             height: '2rem', 
             borderRadius: 0,
             borderBottom: isActive('/postings')&& '3px solid #3AAE45',
@@ -66,7 +66,7 @@ const NavBar = () => {
               fontSize: '0.9rem',
             },
                 }}>View Postings</Button>
-            <Button href='/jobform' sx={{marginLeft:'40px',
+            <Button component={Link} to='/jobform' sx={{marginLeft:'40px',
             height: '2rem', 
             borderRadius: 0,
             borderBottom: isActive('/jobform')&& '3px solid #3AAE45',

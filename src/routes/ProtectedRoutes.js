@@ -4,7 +4,6 @@ import { UserAuth } from '../context/AuthContext'
 import { useEffect } from "react";
 
 function ProtectedRoutes({ children}) {
-
     const { user } = UserAuth()
     const navigate = useNavigate()
     useEffect (() => {
