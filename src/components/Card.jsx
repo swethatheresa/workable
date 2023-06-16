@@ -17,7 +17,6 @@ const CardExample = (props) => {
   const handleEdit =() => {
     
     navigate(`/editposting/${props.id}`)
-    console.log("Edit");
 
   };
   return (

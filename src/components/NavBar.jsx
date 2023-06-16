@@ -7,7 +7,6 @@ import { useNavigate,useLocation } from 'react-router-dom';
 
 const NavBar = () => {
   const router = useLocation();
-  console.log(router.pathname)
   const {user,logoutUser} = UserAuth();
   const isActive = (pathname) => {
     return location.pathname === pathname;

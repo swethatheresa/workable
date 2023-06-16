@@ -30,11 +30,12 @@ const Form = () => {
   const navigate = useNavigate();
   //check if params are passed
   const route = useParams();
+  console.log(route);
 
-  useEffect(() => {
-  if(Object.keys(route).length !== 0)
+  useEffect(() => {console.log('count')
+    setEditPost(false);
+  if(Object.keys(route).length != 0){
     setEditPost(true);
-    console.log(route);
     fetchDocument(route.id).then((doc) => {
       console.log(doc);
       setJobTitle(doc.JobTitle);
@@ -43,16 +44,27 @@ const Form = () => {
       setDisabilityCategory(doc.disabilityCategory);
       setJobType(doc.JobType);
      const apoldate = new Timestamp(doc.ApplicationDeadline.seconds,doc.ApplicationDeadline.nanoseconds).toDate();
-     const appldate = dayjs(apoldate)
-    console.log(apoldate);
-      setApplicationDeadline(appldate);
+      setApplicationDeadline(dayjs(apoldate).toDate())
       setNumberofOpenings(doc.NumberofOpenings);
       setExperience(doc.experience);
       setQualification(doc.qualification);
       setJobDescription(doc.jobDescription);
       setWorkMode(doc.workMode);
-    })
-  },[])
+    })}
+    else{
+      setJobTitle('');
+      setJobLocation('');
+      setSalaryRange(0);
+      setDisabilityCategory([]);
+      setJobType('');
+      setApplicationDeadline(dayjs().toDate());
+      setNumberofOpenings(0);
+      setExperience('');
+      setQualification('');
+      setJobDescription('');
+      setWorkMode('');
+    }
+  },[route])
 
 
   const handleSubmit = async(e) => {
@@ -80,7 +92,7 @@ const Form = () => {
       navigate('/postings')
     }
 
-    console.log(job);
+
 
 
     // Reset form fields
@@ -89,7 +101,7 @@ const Form = () => {
     setSalaryRange(0);
     setDisabilityCategory([]);
     setJobType('');
-    setApplicationDeadline('');
+    setApplicationDeadline();
     setNumberofOpenings(0);
     setExperience('');
     setQualification('');
@@ -137,12 +149,6 @@ const Form = () => {
             label="Job Location"
             variant="outlined"
           />
-          {/* <TextField type='date'
-            value={testdate}
-            onChange={(e) =>{ setTestdate(e.target.value)
-              console.log(testdate)}
-            }
-          /> */}
         </Grid>
 
 
@@ -225,7 +231,6 @@ const Form = () => {
             onChange={(e) =>{ 
               //convert to timestamp firestore
               setApplicationDeadline(dayjs(e).toDate())
-              console.log(dayjs(ApplicationDeadline).toDate())
             }}
               fullWidth
               sx={{ width: '100%'}}
