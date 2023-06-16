@@ -11,6 +11,7 @@ import moment from 'moment';
 import dayjs from 'dayjs';
 import { Timestamp } from 'firebase/firestore';
 
+
 const Form = () => {
   const [JobTitle, setJobTitle] = useState('');
   const [JobLocation, setJobLocation] = useState('');
@@ -113,9 +114,10 @@ const Form = () => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 ,m:3} }}>
       {!editPost?<Typography variant="subtitle1" fontWeight="bold" 
+
       sx={{
         fontSize : '1.5em',
-        m:'0.7em'
+        mt: 5,
       }}
       >
           Post a New Job
@@ -140,7 +142,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <TextField
             value={JobLocation}
             onChange={(e) => setJobLocation(e.target.value)}
@@ -152,7 +154,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}sx={{ width: '100%' }} >
           <TextField
             value={SalaryRange}
             onChange={(e) => setSalaryRange(e.target.value)}
@@ -165,7 +167,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={12} sx={{ width: '100%' }}>
             <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Disability Category *</InputLabel>
             <Select
@@ -203,7 +205,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Job Type *</InputLabel>
             <Select
@@ -238,7 +240,7 @@ const Form = () => {
           </LocalizationProvider>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Work Mode *</InputLabel>
             <Select
@@ -257,7 +259,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <TextField
             value={NumberofOpenings}
             onChange={(e) => setNumberofOpenings(e.target.value)}
@@ -269,7 +271,7 @@ const Form = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Experience *</InputLabel>
             <Select
@@ -288,7 +290,7 @@ const Form = () => {
         </Grid>
 
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ width: '100%' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-required-label">Qualification *</InputLabel>
             <Select
@@ -307,7 +309,7 @@ const Form = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ width: '100%' }}>
           <TextField
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}

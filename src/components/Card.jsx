@@ -90,7 +90,7 @@ const CardExample = (props) => {
                 }}
               />
               <Chip
-                label={props.workmode}
+                label={props.workMode}
                 sx={{
                   marginRight: "0.5rem",
                   backgroundColor: "#CAFFCF",

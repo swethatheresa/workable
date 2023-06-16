@@ -62,7 +62,7 @@ const Postings = () => {
 
   return (
     <>
-    <Grid container flexDirection='column'mt={9} alignItems="center" justifyContent="center">
+    <Grid container flexDirection='column'mt={12} alignItems="center" justifyContent="center">
       <Typography variant="heading1" fontWeight={'bold'} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
         My Job Postings
       </Typography>
@@ -96,7 +96,7 @@ const Postings = () => {
           experience={result.experience}
           numberofapplicants={result.numberofapplicants}
           ApplicationDeadline={result.ApplicationDeadline.toDate().toDateString()}
-          workmode={result.workmode}
+          workMode={result.workMode}
           removeDeletedItem={removeDeletedItem}
         />
       )):<Typography fontSize={22} color={'gray'} mt={10}>No Postings Added, Click on Add Posting!</Typography>}
