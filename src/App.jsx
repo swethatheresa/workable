@@ -30,11 +30,11 @@ function App() {
         <Route path="/login" element={<EmployerLogin/>} />
         <Route path="/" element={<EmployerLogin/>} />
         <Route path="/postings" element={<Postings/>} />
-        <Route path="/applicantdetails" element={<ApplicantDetails/>} />
-        <Route path="/candidatetable" element={<CandidateTable/>} />
+        <Route path="/applicantdetails/:id1/:id2" element={<ApplicantDetails/>} />
         <Route path="/companyform" element={<CompanyForm />} />
         <Route path="/jobform" element={<JobForm />} />
         <Route path ='/editposting/:id' element={<JobForm/>}/>
+        <Route path ='/candidatetable/:id' element={<CandidateTable/>}/>
       </Routes>
       </ProtectedRoutes>
     </Router>

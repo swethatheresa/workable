@@ -8,46 +8,43 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import theme from '../theme';
 import { fetchApplicants,fetchApplicantsByStatus } from '../services/Applicants';
+import { useNavigate } from 'react-router-dom';
 
 const CustomTable = (data) => {
   const [applicants, setApplicants] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleApplicant = (applicantid) => {
+    navigate(`/applicantdetails/${data.id}/${applicantid}`);
+  };
   useEffect(() => {
-      setLoading(true);
       if(data.status)
       {
-        fetchApplicantsByStatus('Cmmm4zvXxrFt74x1CtdQ',data.status).then((res) => {
+        fetchApplicantsByStatus(data.id,data.status).then((res) => {
           setApplicants(res);
         });
       }
       else 
       {
-        fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
+        fetchApplicants(data.id).then((res) => {
           setApplicants(res);
         });
       }
-      fetchApplicants('Cmmm4zvXxrFt74x1CtdQ').then((res) => {
-      });
   }, []);
-  useEffect(() => {
-      if (applicants) {
-          setLoading(false);
-      }
-  }, [applicants]);
+
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableHead sx={{backgroundColor:theme.palette.primary.darker}}>
           <TableRow >
             <TableCell sx={{ color: "#ffffff" }}>CANDIDATE NAME</TableCell>
-            <TableCell sx={{ color: "#ffffff" }}>APPLICATION STATUS</TableCell>
-            <TableCell sx={{ color: "#ffffff" }}>APPLIED ROLE</TableCell>
             <TableCell sx={{ color: "#ffffff" }}>APPLICATION DATE</TableCell>
+            <TableCell sx={{ color: "#ffffff" }}>E-MAIL ID</TableCell>
+            <TableCell sx={{ color: "#ffffff" }}>CONTACT NUMBER</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {applicants && Array.isArray(applicants) && applicants.map((row, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} sx={{cursor:'pointer'}} onClick={()=>handleApplicant(row.id)} >
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.appliedDate.toDate().toDateString()}</TableCell>
               <TableCell>{row.email}</TableCell>
