@@ -13,7 +13,7 @@ const CandidateTable = () => {
         setValue(newValue);
       };
   return (
-    <Grid container flexDirection={'column'} 
+    <Grid container flexDirection={'column'} overflow={'auto'}
     sx={{ 
             m: '3em',
             p: '2rem',

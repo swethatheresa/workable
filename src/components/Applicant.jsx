@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Typography, Link, CircularProgress} from '@mui/material';
+import { 
+  Button, 
+  Typography, 
+  Link, 
+  CircularProgress, 
+  FormControl, 
+  InputLabel,
+  Select,
+  MenuItem
+} from '@mui/material';
 import theme from '../theme';
-import { fetchApplicant } from '../services/Applicants';
+import { fetchApplicant, changeStatus } from '../services/Applicants';
 
 const Applicant = () => {
   const [applicant, setApplicant] = useState(null);
@@ -26,7 +35,6 @@ const Applicant = () => {
   }
 
   return (
-
     <Grid
       container
       spacing={3}
@@ -57,10 +65,14 @@ const Applicant = () => {
               id="demo-simple-select"
               label="Status"
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <MenuItem value={"ShortList"}>ShortList</MenuItem>
-              <MenuItem value={"WaitList"}>WaitList</MenuItem>
+              onChange={(e) => 
+                {
+                  setStatus(e.target.value);
+                  changeStatus('ZLGMUmrp5fnD7LnWPFdF',e.target.value);
+                }
+              }>
+              <MenuItem value={"Shortlist"}>ShortList</MenuItem>
+              <MenuItem value={"Waitlist"}>WaitList</MenuItem>
               <MenuItem value={"Selected"}>Selected</MenuItem>
               <MenuItem value={"Not Selected"}>Not Selected</MenuItem>
             </Select>
