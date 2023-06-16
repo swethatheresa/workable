@@ -20,12 +20,18 @@ const CardExample = (props) => {
     console.log("Edit");
 
   };
+  const handleViewPosting =() => {
+    navigate(`/candidatetable/${props.id}`)
+  };
   return (
-    <Card sx={{  height:'fit-content', width: 350,padding:1 ,borderRadius:4 ,margin:1}}>
+    <Card sx={{  height:'fit-content', width: 350,padding:1 ,borderRadius:4 ,margin:1 ,'&:hover': {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+      transform: 'translateY(-4px)',
+    } }}>
       <CardContent>
         <Grid container alignItems="center" justifyContent="flex-start" marginBottom={2}>
           <Grid item>
-            <Typography variant="subtitle1" fontWeight="bold">
+            <Typography variant="subtitle1" fontWeight="bold" sx={{cursor:'pointer'}} onClick={()=>handleViewPosting()}>
               {props.JobTitle}
             </Typography>
             <Typography variant="body2">

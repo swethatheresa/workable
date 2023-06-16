@@ -13,14 +13,14 @@ import {
 import theme from '../theme';
 import { fetchApplicant, changeStatus } from '../services/Applicants';
 
-const Applicant = () => {
+const Applicant = (data) => {
   const [applicant, setApplicant] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState('');
 
   useEffect(() => {
     setLoading(true);
-    fetchApplicant('ZLGMUmrp5fnD7LnWPFdF').then((res) => {
+    fetchApplicant(data.applicantid).then((res) => {
       setApplicant(res);
       setLoading(false);
     });
@@ -68,7 +68,7 @@ const Applicant = () => {
               onChange={(e) => 
                 {
                   setStatus(e.target.value);
-                  changeStatus('ZLGMUmrp5fnD7LnWPFdF',e.target.value);
+                  changeStatus(data.applicantid,e.target.value);
                 }
               }>
               <MenuItem value={"Shortlist"}>ShortList</MenuItem>
