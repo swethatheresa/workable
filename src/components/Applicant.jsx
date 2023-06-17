@@ -165,6 +165,15 @@ const Applicant = (data) => {
       <Link rel="noopener noreferrer" href={applicant.resumeLink} target="_blank">
       <Typography variant="heading2">{applicant.resumeLink}</Typography>
       </Link>
+      {applicant.coverLetter && (
+        <>
+          <Typography variant="heading1" sx={{ fontWeight: 'bold', fontSize: '1.1em' }}>
+            Cover Letter
+          </Typography>
+          <Typography variant="heading2">{applicant.coverLetter}</Typography>
+        </>
+      )}
+
       {/* Confirmation Dialog */}
       <Dialog open={openConfirmation} onClose={handleCloseConfirmation}>
         <DialogTitle fontWeight={'bold'}>Confirm Status Change</DialogTitle>
