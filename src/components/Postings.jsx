@@ -24,6 +24,10 @@ const Postings = () => {
   };
 
   const handleSearch = async () => {
+    if(!search){
+      setIsSearching(false);
+      return fetchInitialData();
+    }
     setLoading(true);
     const { matchingDocuments, lastDocument } = await searchDocuments(user.uid, search);
     setResults(matchingDocuments);
