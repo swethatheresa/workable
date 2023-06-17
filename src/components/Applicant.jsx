@@ -16,12 +16,14 @@ import {
 } from '@mui/material';
 import theme from '../theme';
 import { fetchApplicant, changeStatus } from '../services/Applicants';
+import { useNavigate } from 'react-router-dom';
 
 const Applicant = (data) => {
   const [applicant, setApplicant] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState('');
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  const route = useNavigate();
 
   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
@@ -42,7 +44,7 @@ const Applicant = (data) => {
       setApplicant(res);
       setLoading(false);
     });
-  }, []);
+  }, [route]);
 
   if (loading || !applicant) {
     return (
