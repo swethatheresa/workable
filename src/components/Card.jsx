@@ -143,7 +143,7 @@ const CardExample = (props) => {
 
 
         <Grid container justifyContent="space-between" alignItems={'center'} marginTop={2}>
-          <Grid item flexDirection={'row'} display={'flex'} justifyContent="center" alignItems={'center'} sx={{cursor:'pointer'}}>
+          <Grid item flexDirection={'row'} display={'flex'} justifyContent="center" alignItems={'center'} sx={{cursor:'pointer'}} onClick={()=>handleViewPosting()}>
             <Typography variant="h4">
                 {props.numberofapplicants}
               </Typography>
