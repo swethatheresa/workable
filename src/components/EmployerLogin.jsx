@@ -25,7 +25,7 @@ const EmployerLogin = () => {
         e.preventDefault();
         createUser(email, password).then((loggedIn) => {
             if(loggedIn)
-              {   console.log("hello there")
+              {  
                   navigate('/companyform');
               }
             }
@@ -44,7 +44,7 @@ const EmployerLogin = () => {
           loginUser(email, password)
             .then((loggedIn) => {
               if(loggedIn)
-                {   console.log("hello there")
+                {  
                     navigate('/postings');
                 }
 
@@ -58,7 +58,7 @@ const EmployerLogin = () => {
         e.preventDefault();
        loginGoogle().then((loggedIn) => {
         if(loggedIn)
-          {   console.log("hello there")
+          {   
               navigate('/postings');
           }
         })

@@ -20,7 +20,6 @@ const NavBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.up('md'));
   const router = useLocation();
-  console.log(router.pathname)
   const {user,logoutUser} = UserAuth();
   const isActive = (pathname) => {
     return location.pathname === pathname;
