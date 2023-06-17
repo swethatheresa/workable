@@ -38,7 +38,7 @@ const CardExample = (props) => {
     navigate(`/candidatetable/${props.id}`)
   };
   return (
-    <Card sx={{  height:'fit-content', width: 350,padding:1 ,borderRadius:4 ,margin:1 ,'&:hover': {
+    <Card sx={{  height:'fit-content', minWidth: 350,padding:1 ,borderRadius:4 ,margin:1 ,'&:hover': {
       boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
       transform: 'translateY(-4px)',
     } }}>

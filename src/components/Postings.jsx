@@ -4,6 +4,7 @@ import Card from './Card';
 import { fetchInitialPage, fetchNextPage, searchDocuments, searchNextDocuments } from '../services/JobPostings'
 import { UserAuth } from "../context/AuthContext";
 import {Search as SearchIcon} from '@mui/icons-material';
+import theme from '../theme';
 
 
 const Postings = () => {
@@ -89,32 +90,43 @@ const Postings = () => {
             }}
           />
       </Grid>
-      <Grid container alignItems="center" justifyContent="center" marginBottom={2} >
-      {results.length>0 ? results.map((result, index) => (
-        <Card
-          key={index}
-          id={result.id}
-          JobTitle={result.JobTitle}
-          JobLocation={result.JobLocation}
-          posted_date={result.posted_date.toDate().toDateString()}
-          experience={result.experience}
-          numberofapplicants={result.numberofapplicants}
-          ApplicationDeadline={result.ApplicationDeadline.toDate().toDateString()}
-          workMode={result.workMode}
-          removeDeletedItem={removeDeletedItem}
-        />
-      )):<Typography fontSize={22} color={'gray'} mt={10}>No Postings Added, Click on Add Posting!</Typography>}
-      {loading ? (
-        <Grid container alignItems={'center'} justifyContent={'center'} m={5}>
-          <CircularProgress size={40}/>
-        </Grid>
-      ) : (
-        <Grid container alignItems={'center'} justifyContent={'center'}>
-          {lastDocument &&<Button onClick={loadNextPage}>Load More</Button>}
-        </Grid>
-      )}
+   <Grid item xs={12} sm={12} alignItems='center' justifyContent='center'>
+      <Grid container alignItems="center" justifyContent="start" marginBottom={2} paddingLeft={4}
+       sx={
+        {
+          [theme.breakpoints.down('md')]: 
+          { paddingLeft:0,
+            justifyContent:'center'
+          }
+        }
+      }  
+      >
+              {results.length>0 ? results.map((result, index) => (
+                <Card
+                  key={index}
+                  id={result.id}
+                  JobTitle={result.JobTitle}
+                  JobLocation={result.JobLocation}
+                  posted_date={result.posted_date.toDate().toDateString()}
+                  experience={result.experience}
+                  numberofapplicants={result.numberofapplicants}
+                  ApplicationDeadline={result.ApplicationDeadline.toDate().toDateString()}
+                  workMode={result.workMode}
+                  removeDeletedItem={removeDeletedItem}
+                />
+              )):<Typography fontSize={22} color={'gray'} mt={10}>No Postings Added, Click on Add Posting!</Typography>}
+              {loading ? (
+                <Grid container alignItems={'center'} justifyContent={'center'} m={5}>
+                  <CircularProgress size={40}/>
+                </Grid>
+              ) : (
+                <Grid container alignItems={'center'} justifyContent={'center'}>
+                  {lastDocument &&<Button onClick={loadNextPage}>Load More</Button>}
+                </Grid>
+              )}
       </Grid>
     </Grid>
+      </Grid>
     </>);
 };
 
