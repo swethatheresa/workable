@@ -20,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
         .then((userCredential) => {
           const user = userCredential.user;
           const { uid, email } = user;
-
+          console.log("User Id: " + uid);
           setDoc(doc(db, "jobseekers", uid), { email }) 
             .then(() => {
               resolve(true);
@@ -102,7 +102,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ createUser, loginUser, logoutUser, loginGoogle, user }}
+      value={{ createUser, loginUser, logoutUser, loginGoogle, user}}
     >
       {children}
     </UserContext.Provider>

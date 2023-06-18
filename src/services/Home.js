@@ -75,19 +75,36 @@ export const fetchNextPage = async (lastDocument) => {
   };
 };
 
-export const fetchSortedJobListings = async (sortby) => {
-  const querySnapshot = await getDocs(
-    query(ref, orderBy(sortby, "desc"), limit(pageLimit))
-  );
-  const jobListings = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+export const fetchSortedJobListings = async (sortBy) => {
+  let orderByField = "posted_date";
 
-  console.log(jobListings);
+  if (sortBy === "salary") {
+    orderByField = "SalaryRange";
+  } else if (sortBy === "openings") {
+    orderByField = "NumberOfOpenings";
+  }
 
-  return {
-    jobListings,
-    lastVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
-  };
+  try {
+    const querySnapshot = await getDocs(
+      query(ref, orderBy(orderByField, "desc"), limit(pageLimit))
+    );
+
+    const jobListings = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    console.log(jobListings);
+
+    return {
+      jobListings,
+      lastVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
+    };
+  } catch (error) {
+    console.error("Error fetching sorted job listings:", error);
+    return {
+      jobListings: [],
+      lastVisible: null,
+    };
+  }
 };

@@ -1,43 +1,39 @@
-import { useState } from 'react'
-import './App.css'
-import JobPost from './components/JobPost'
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme.jsx';
-import EmployerLogin from './components/EmployerLogin'
-import JobCard from './components/JobCard'
-import MyJobs from './components/MyJobs';
-import { BrowserRouter as Router,Route,Routes,Link } from 'react-router-dom/dist';
-import Applyform from './components/Applyform';
-import JobForm from './components/JobForm';
-
-import ApplicantDetails from './components/ApplicantDetails';
-import CandidateTable from './components/CandidateTable';
-import CompanyForm from "./components/CompanyForm";
+import "./App.css";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme.jsx";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom/dist";
+import Applyform from "./components/Applyform";
+import Register from "./components/Register";
 import Home from "./components/Home";
-import { AuthContextProvider } from './context/AuthContext';
+import MyJobs from "./components/MyJobs";
+import JobPost from "./components/JobPost";
+import { AuthContextProvider } from "./context/AuthContext";
+import SeekerLogin from "./components/SeekerLogin";
 
 function App() {
-  return (<>
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <AuthContextProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<EmployerLogin/>} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/jobpost" element={<JobPost/>} />
-        <Route path="/myjobs" element={<MyJobs/>} />
-        <Route path="/applyform" element={<Applyform/>} />
-        <Route path="/jobcard" element={<JobCard/>} />
-        <Route path="/applicantdetails" element={<ApplicantDetails/>} />
-        <Route path="/candidatetable" element={<CandidateTable/>} />
-        <Route path="/companyform" element={<CompanyForm />} />
-        <Route path="/jobform" element={<JobForm />} />
-      </Routes>
-    </Router>
-    </AuthContextProvider>
-    </ThemeProvider>
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthContextProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<SeekerLogin />} />
+              <Route path="/register" element={<Register/> } />
+              <Route path="/job" element={<JobPost />} />
+              <Route path="/apply" element={<Applyform />} />
+              <Route path="/myjobs" element={<MyJobs />} />
+            </Routes>
+          </Router>
+        </AuthContextProvider>
+      </ThemeProvider>
     </>
   );
 }
