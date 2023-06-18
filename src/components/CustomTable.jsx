@@ -46,7 +46,7 @@ const CustomTable = (data) => {
           {applicants && Array.isArray(applicants) && applicants.map((row, index) => (
             <TableRow key={index} sx={{cursor:'pointer'}} onClick={()=>handleApplicant(row.id)} >
               <TableCell>{row.name}</TableCell>
-              <TableCell>{row.appliedDate.toDate().toDateString()}</TableCell>
+              <TableCell>{row.applied_date.toDate().toDateString()}</TableCell>
               <TableCell>{row.email}</TableCell>
               <TableCell>{row.contactNumber}</TableCell>
             </TableRow>

@@ -42,6 +42,14 @@ const Applicant = (data) => {
     setLoading(true);
     fetchApplicant(data.applicantid).then((res) => {
       setApplicant(res);
+      if(res.status !== "Applied")
+      {
+        setStatus(res.status);
+      }
+      else
+      {
+        setStatus("");
+      }
       setLoading(false);
     });
   }, [route]);
@@ -97,7 +105,7 @@ const Applicant = (data) => {
             </Select>
           </FormControl>
       </Grid>
-      <Typography variant="heading2">Applied on {applicant.appliedDate.toDate().toDateString()}</Typography>
+      <Typography variant="heading2">Applied on {applicant.applied_date.toDate().toDateString()}</Typography>
       <Typography variant="heading1" sx={{ mt: '1em', fontWeight: 'bold', fontSize: '1.1em' }}>
         Contact Number
       </Typography>
