@@ -14,7 +14,6 @@ const JobCard = ({ job }) => {
   console.log(job);
 
   const {
-    // companyLogo,
     JobTitle,
     jobDescription,
     disabilityCategory,
@@ -27,7 +26,7 @@ const JobCard = ({ job }) => {
     qualification,
     userid,
     JobLocation,
-    applicationStatus,
+    status,
     companylogo
   } = job;
 
@@ -52,9 +51,9 @@ const JobCard = ({ job }) => {
         >
           <Box
             sx={{
-              marginRight: { xs: 0, sm: "1rem" }, // Remove margin on smaller screens
-              marginBottom: { xs: "1rem", sm: 0 }, // Add margin bottom on smaller screens
-              alignSelf: { xs: "center", sm: "flex-start" }, // Align to the left on smaller screens
+              marginRight: { xs: 0, sm: "1rem" }, 
+              marginBottom: { xs: "1rem", sm: 0 }, 
+              alignSelf: { xs: "center", sm: "flex-start" }, 
             }}
           >
             <img
@@ -98,7 +97,7 @@ const JobCard = ({ job }) => {
               >
                 {JobTitle}
               </Typography>
-              {applicationStatus && (
+              {status && (
                 <Box
                   sx={{
                     position: "absolute",
@@ -119,7 +118,7 @@ const JobCard = ({ job }) => {
                   }}
                 >
                   <Chip
-                    label={applicationStatus}
+                    label={status}
                     variant="outlined"
                     sx={{
                       backgroundColor: "#E3E9FF",
@@ -174,9 +173,9 @@ const JobCard = ({ job }) => {
               alignItems="center"
               marginTop={1}
               sx={{
-                flexWrap: "wrap", // Allow chips to wrap to the next line
-                gap: "0.5rem", // Add gap between chips
-                marginLeft: { xs: 0, sm: "3rem" }, // Add margin left on smaller screens
+                flexWrap: "wrap", 
+                gap: "0.5rem", 
+                marginLeft: { xs: 0, sm: "3rem" }, 
               }}
             >
               {Array.isArray(disabilityCategory) &&

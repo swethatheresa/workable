@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Box,
@@ -28,56 +29,116 @@ import {
 import theme from "../theme";
 import JobCard from "./JobCard";
 import NavBar from "./NavBar";
+import { UserAuth } from "../context/AuthContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import {
+  // fetchJobListings,
+  fetchInitialPage,
+  fetchNextPage,
+  fetchSortedJobListings,
+} from "../services/Home";
 
 function Home() {
+  const [jobListings, setJobListings] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const perPage = 3;
+  const [lastVisible, setLastVisible] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [disabilityCategories, setDisabilityCategories] = useState([]);
-  const [selectedDisability, setSelectedDisability] = useState('');
+  const [disability, setDisability] = useState("");
+  const [workMode, setWorkMode] = useState([]);
+  const [jobType, setJobType] = useState([]);
+  const [postedDate, setPostedDate] = useState([]);
+  const [experience, setExperience] = useState([]);
+  const [salaryRange, setSalaryRange] = useState([]);
+  const [location, setLocation] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const navigate = useNavigate();
+  const { user } = UserAuth();
+  const userid = user.uid;
+
+  const disabilityCategories = [
+    "Leprosy Cured persons",
+    "Hearing Impairment",
+    "Locomotor Disability",
+    "Dwarfism",
+    "Intellectual Disability",
+    "Mental Illness",
+    "Autism Spectrum Disorder",
+    "Cerebral Palsy",
+    "Muscular Dystrophy",
+    "Chronic Neurological conditions",
+    "Specific Learning Disabilities",
+    "Multiple Sclerosis",
+    "Speech and Language disability",
+    "Thalassemia",
+    "Hemophilia",
+    "Sickle cell disease",
+    "Multiple Disabilities including deaf-blindness",
+    "Acid Attack victims",
+    "Parkinson's disease",
+  ];
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      const jobListingsRef = collection(db, "joblistings");
-      const snapshot = await getDocs(jobListingsRef);
-      const jobsData = [];
-      snapshot.forEach((doc) => {
-        jobsData.push(doc.data());
-      });
-      const disabilityCategories = Array.from(
-        new Set(jobsData.flatMap((job) => job.disabilityCategory))
-      );
-      setJobs(jobsData);
-      setDisabilityCategories(disabilityCategories);
+    const fetchJobListings = async () => {
+      try {
+        const { joblistings, lastVisible: fetchedLastVisible } =
+          await fetchInitialPage();
+        setJobListings(joblistings);
+        setLastVisible(fetchedLastVisible);
+      } catch (error) {
+        console.error("Error fetching job listings:", error);
+      }
     };
 
-    fetchJobs();
+    fetchJobListings();
   }, []);
 
-  const handleDropdownChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedDisability(selectedValue);
-    const databaseRef = firebase.database().ref("jobs");
-    databaseRef
-      .orderByChild("disability")
-      .equalTo(selectedValue)
-      .once("value")
-      .then((snapshot) => {
-        const jobsData = [];
-        snapshot.forEach((childSnapshot) => {
-          jobsData.push(childSnapshot.val());
-        });
-        console.log(jobsData);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const loadNextPage = async () => {
+    setLoading(true);
+    const { jobListings, lastVisible } = await fetchNextPage(lastVisible);
+    setJobListings((prevListings) => [...prevListings, ...jobListings]);
+    setLastVisible(lastVisible);
+    setLoading(false);
   };
 
-  const handleApplyFilters = () => {
+  const handleSearch = () => {
+    const location = document.getElementById("location-input").value;
+    const searchQuery = document.getElementById("search-input").value;
+    const selectedDisability =
+      document.getElementById("disability-input").value;
+    setLocation(location);
+    setKeyword(searchQuery);
+    selectedDisability(selectedDisability);
+  };
+
+  const handleSortByChange = async () => {
+    const jobData = await fetchSortedJobListings(sortBy);
+    setJobListings(jobData);
+  };
+
+  const handleApplyFilters = async () => {
     setOpenDialog(false);
+    const filterConditions = [
+      { field: "workMode", operator: "in", value: workMode },
+      { field: "JobType", operator: "in", value: jobType },
+      // { field: "postedDate", operator: "<=", value: postedDate },
+      // { field: "experience", operator: "==", value: experience },
+      { field: "SalaryRange", operator: "<=", value: salaryRange },
+      { field: disability, operator: "in", value: "disabilityCategory" },
+      { field: "JobLocation", operator: "==", value: location },
+      { field: keyword, operator: "==", value: "JobTitle" },
+    ];
+    const jobData = await fetchJobListings(filterConditions);
+    setJobListings(jobData);
+  };
+
+  const handleJobCardClick = (jobId) => {
+    navigate("/apply", { state: { jobId } });
   };
 
   const handleFilterClick = () => {
@@ -141,6 +202,7 @@ function Home() {
         }}
       >
         <TextField
+          id="disability-input"
           select
           label="Disability"
           variant="outlined"
@@ -148,8 +210,7 @@ function Home() {
             width: { xs: 280, sm: 300, md: 300 },
             background: "white",
           }}
-          value={selectedDisability}
-          onChange={handleDropdownChange}
+          value={disability}
         >
           {disabilityCategories.map((category) => (
             <MenuItem key={category} value={category}>
@@ -158,6 +219,7 @@ function Home() {
           ))}
         </TextField>
         <TextField
+          id="location-input"
           label="Location"
           variant="outlined"
           sx={{
@@ -173,6 +235,7 @@ function Home() {
           }}
         />
         <TextField
+          id="search-input"
           label="Search for Jobs"
           variant="outlined"
           sx={{
@@ -187,6 +250,10 @@ function Home() {
             ),
           }}
         />
+
+        <Button variant="contained" onClick={handleSearch}>
+          Search
+        </Button>
       </Box>
 
       <Grid container justifyContent="center" mt={10}>
@@ -252,8 +319,8 @@ function Home() {
                 <Select
                   labelId="sort-by-label"
                   id="sort-by-select"
-                  // value={sortBy}
-                  // onChange={handleSortByChange}
+                  value={sortBy}
+                  onChange={handleSortByChange}
                   label="Sort By"
                 >
                   <MenuItem value="recent">Most Recent</MenuItem>
@@ -270,9 +337,22 @@ function Home() {
                 justifyContent: "space-between",
               }}
             >
-              {jobs.slice(0, 3).map((job, index) => (
-                <JobCard key={index} job={job} />
-              ))}
+              {jobListings
+                .slice(currentIndex, currentIndex + perPage)
+                .map((job) => (
+                  <div
+                    key={job.id}
+                    style={{
+                      display: "inline-block",
+                      width: "100%",
+                      height: "100%",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleJobCardClick(job.id)}
+                  >
+                    <JobCard job={job} />
+                  </div>
+                ))}
             </Box>
 
             <Box
@@ -282,12 +362,15 @@ function Home() {
                 mt: { xs: 2, sm: 4 },
               }}
             >
-              <Button
-                variant="outlined"
-                sx={{ width: { xs: "100%", sm: "auto" } }}
-              >
-                Load More
-              </Button>
+              {!isLoading && currentIndex + perPage < jobListings.length && (
+                <Button
+                  variant="outlined"
+                  sx={{ width: { xs: "100%", sm: "auto" } }}
+                  onClick={loadNextPage}
+                >
+                  Load More
+                </Button>
+              )}
             </Box>
           </Box>
         </Grid>
@@ -489,7 +572,7 @@ function Home() {
                 />
               </FormGroup>
 
-              <Typography
+              {/* <Typography
                 variant="subtitle1"
                 sx={{
                   fontSize: "1rem",
@@ -556,7 +639,7 @@ function Home() {
                     </Typography>
                   }
                 />
-              </FormGroup>
+              </FormGroup> */}
 
               <Typography
                 variant="subtitle1"
@@ -568,7 +651,7 @@ function Home() {
               >
                 Salary
               </Typography>
-              <Slider defaultValue={50} aria-label="Salary" />
+              <Slider defaultValue={1000} aria-label="Salary" />
             </FormControl>
           </FormControl>
         </DialogContent>

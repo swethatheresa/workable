@@ -1,42 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import JobCard from "./JobCard";
+import NavBar from "./NavBar";
 import { Typography, Box, useTheme } from "@mui/material";
-import companyLogo from "../assets/companyLogo.png";
+import { UserAuth } from "../context/AuthContext";
+import { getApplied } from "../services/Apply";
 
 function MyJobs() {
   const theme = useTheme();
+  const [jobs, setJobs] = useState([]);
+  const { user } = UserAuth();
+  const userid = user.uid;
 
-  const jobs = [
-    {
-      companyLogo: companyLogo,
-      title: "Job Title 1",
-      description:
-        "Lorem ipsum dolor sit amet. Ad perferendis nihil ut quia magni sit voluptatibus totam non libero rerum qui eveniet neque ut totam ipsa. Quo dolores aliquam et natus consectetur et placeat provident ut nulla internos quo architecto vitae ut perferendis omnis non quos minus!",
-      disabilities: ["Disability 1", "Disability 2", "Disability 3"],
-      jobTypes: ["Remote", "Contractual", "Entry-Level"],
-      applicationStatus: "Viewed",
-    },
-  ];
+  useEffect(() => {
+    getApplied(userid)
+      .then((jobs) => {
+        setJobs(jobs);
+      })
+      .catch((error) => {
+        console.error("Error fetching jobs:", error);
+      });
+  }, []);
 
   return (
+    <>
+    <NavBar />
     <Box
       sx={{
         px: { xs: 2, sm: 4 },
+        pt: 8,
       }}
     >
       <Typography
         variant="h4"
         sx={{
-          fontSize: "1.3srem",
+          // fontSize: "1.3rem",
           fontWeight: "600",
           [theme.breakpoints.down("md")]: {
-            fontSize: "1rem",
+            fontSize: "3rem",
           },
           [theme.breakpoints.down("sm")]: {
-            fontSize: "0.9rem",
+            fontSize: "1.9rem",
           },
           [theme.breakpoints.down("xs")]: {
-            fontSize: "0.7rem",
+            fontSize: "0.9rem",
           },
           lineHeight: { xs: "40px", sm: "80px" },
           textAlign: "center",
@@ -46,18 +52,10 @@ function MyJobs() {
         My Jobs List
       </Typography>
       {jobs.map((job, index) => (
-        <JobCard key={index} {...job} />
-      ))}
-      {jobs.map((job, index) => (
-        <JobCard key={index} {...job} />
-      ))}
-      {jobs.map((job, index) => (
-        <JobCard key={index} {...job} />
-      ))}
-      {jobs.map((job, index) => (
-        <JobCard key={index} {...job} />
+        <JobCard job={job} />
       ))}
     </Box>
+    </>
   );
 }
 
