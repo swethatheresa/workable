@@ -33,7 +33,15 @@ const fetchNextPage = async (userid,lastDocument) => {
 
 const searchDocuments = async (userid, searchValue) => {
 
-    const querySnapshot = await getDocs(query(ref, orderBy(field, "desc"), limit(pageSize), where("userid", "==", userid), where("JobTitle", "==", searchValue)));
+    const querySnapshot = await getDocs(
+      query(
+        ref, 
+        orderBy("JobTitle", "desc"), 
+        limit(pageSize), 
+        where("userid", "==", userid), 
+        where('JobTitle', '>=', searchValue),
+        where('JobTitle', '<', searchValue + '\uf8ff')
+      ));
     const matchingDocuments = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -45,7 +53,15 @@ const searchDocuments = async (userid, searchValue) => {
 }
 
 const searchNextDocuments = async (userid, searchValue, lastDocument) =>{
-    const querySnapshot = await getDocs(query(ref, orderBy(field, "desc"), startAfter(lastDocument), limit(pageSize), where("userid", "==", userid), where("JobTitle", "==", searchValue)));
+    const querySnapshot = await getDocs(
+      query(
+        ref, 
+        orderBy("JobTitle", "desc"), 
+        limit(pageSize), 
+        where("userid", "==", userid), 
+        where('JobTitle', '>=', searchValue),
+        where('JobTitle', '<', searchValue + '\uf8ff')
+      ));
     const matchingDocuments = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
