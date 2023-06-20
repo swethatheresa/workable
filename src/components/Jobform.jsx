@@ -10,6 +10,7 @@ import { fetchDocument, updateDocument } from '../services/JobPostings';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import { Timestamp } from 'firebase/firestore';
+import theme from '../theme';
 
 
 const Form = () => {
@@ -112,12 +113,18 @@ const Form = () => {
 
   return (<>
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} sx={{ padding: { xs: 2, sm: 15 ,m:3} }}>
+      <Grid container spacing={2} 
+      sx={{ 
+        padding: { xs: 2, sm: 15 ,m:3} ,
+        [theme.breakpoints.down('xs')]: {
+          padding:3
+        }
+        }}>
       {!editPost?<Typography variant="subtitle1" fontWeight="bold" 
 
       sx={{
         fontSize : '1.5em',
-        mt: 5,
+        m:'0.7em'
       }}
       >
           Post a New Job
@@ -130,7 +137,7 @@ const Form = () => {
       >
           Edit Job
       </Typography>}
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={12} sx={{ width: '100%' }}>
           <TextField
             value={JobTitle}
             onChange={(e) => setJobTitle(e.target.value)}

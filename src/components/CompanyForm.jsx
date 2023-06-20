@@ -46,11 +46,20 @@ function CompanyForm() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "calc(100vh - 0.5rem)", 
           backgroundColor: "#f5f5f5",
         }}
       >
-        <Box sx={{ width: "80%", maxWidth: 600 }}>
+        <Box sx={{ width: "80%", maxWidth: 600, mt : "9em",
+          [theme.breakpoints.down("sm")]: {
+            mt: "5em",
+          },
+      }}>
+          <Typography variant="subtitle1" fontWeight="bold" color={theme.typography.green} fontSize={35} lineHeight={1}>
+            Let's get started!
+          </Typography>
+          <Typography variant="subtitle1" fontWeight="medium" mt={2} mb={4} fontSize={17}>
+            Please provide your company details in the designated fields.
+          </Typography>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
