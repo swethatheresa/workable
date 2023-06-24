@@ -17,24 +17,42 @@ import {
 import theme from '../theme';
 import { fetchApplicant, changeStatus } from '../services/Applicants';
 import { useNavigate } from 'react-router-dom';
+import {sendEmail,sendEmailReject} from '../services/Mail';
+import { UserAuth } from '../context/AuthContext';
+
 
 const Applicant = (data) => {
   const [applicant, setApplicant] = useState(null);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState('');
+  const [previousStatus, setPreviousStatus] = useState('')
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  const {user} = UserAuth();
   const route = useNavigate();
 
   const handleStatusChange = (newStatus) => {
+    setPreviousStatus(status);
     setStatus(newStatus);
     setOpenConfirmation(true);
   };
   const handleConfirmStatusChange = () => {
     changeStatus(data.applicantid, status);
+    if(status === "Selected")
+      {
+        sendEmail(applicant.email,'sde',user.displayName)
+        console.log("Email sent", applicant.email)
+      }
+      else if(status === "Not Selected")
+      {
+        sendEmailReject(applicant.email,'sde',user.displayName)
+        console.log("Email sent", applicant.email)
+      }
+        
     setOpenConfirmation(false);
   };
 
   const handleCloseConfirmation = () => {
+    setStatus(previousStatus);
     setOpenConfirmation(false);
   };
 

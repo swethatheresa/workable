@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const EmployerLogin = () => {
     const [login, setLogin] = useState(true);
     const [email,setEmail] = useState("");
