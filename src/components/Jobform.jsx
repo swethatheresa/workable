@@ -32,9 +32,8 @@ const Form = () => {
   const navigate = useNavigate();
   //check if params are passed
   const route = useParams();
-  console.log(route);
 
-  useEffect(() => {console.log('count')
+  useEffect(() => {
     setEditPost(false);
   if(Object.keys(route).length != 0){
     setEditPost(true);
@@ -87,8 +86,10 @@ const Form = () => {
       workMode,
       testdate
     }
-    if(!editPost)
+    if(!editPost){
       await addJobDetails(job,user);
+      navigate('/postings')
+    }
     else {
       await updateDocument(route.id,job)
       navigate('/postings')

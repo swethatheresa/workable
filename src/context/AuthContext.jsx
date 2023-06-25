@@ -1,21 +1,28 @@
 import React, { useState, useEffect, createContext,useContext } from "react";
 import { auth,provider } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup } from "firebase/auth";
+import { checkRole } from "../services/Auth";
 
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
+    const [role , setRole] = useState("");
 
 
 
     const createUser = (email, password) => {
         return new Promise ((resolve,reject) => {
-       createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+       createUserWithEmailAndPassword(auth, email, password).then(async(userCredential) => {
         // Signed in 
         const user = userCredential.user;
+         setRole("employer");
+         console.log("role",role)
         setUser(user);
+        console.log(user);
+        //set user and role in user state
+        
         console.log(user);
         resolve(true)
         // ...
@@ -29,10 +36,26 @@ export const AuthContextProvider = ({ children }) => {
     const loginUser = (email, password) => {
         return new Promise ((resolve,reject) => {
         signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async(userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setUser(user);
+        const role = await checkRole(user.uid);// Retrieve the role
+        if(role==="jobseekers")
+        return new Promise((resolveLogout, rejectLogout) => {
+            logoutUser()
+              .then(() => {
+                rejectLogout("Please login using Job Seeker portal");
+              })
+              .catch((error) => {
+                rejectLogout("Please login using Job Seeker portal");
+              });
+          });
+        setRole( role); // Retrieve the role
+       
+        // useEffect(() => {
+        // setUser(userWithRole);
+        // }, [userWithRole]);
+        console.log(user);
         //console.log(user);
         resolve(true)
         // ...
@@ -46,14 +69,34 @@ export const AuthContextProvider = ({ children }) => {
     const loginGoogle = () => {
             return new Promise ((resolve,reject)=>{
             signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async(result) => {
             // The signed-in user info.
+            //check if user has already signed up
+
             const user = result.user;
-            setUser(user);
+            const uid = user.uid;
+            if(uid){
+            const role = await checkRole(uid);
+            if(role==="none"){
+                setRole("employer");
+                resolve("new");
+            }
+            else  if(role==="jobseekers")
+            return new Promise((resolveLogout, rejectLogout) => {
+                logoutUser()
+                  .then(() => {
+                    rejectLogout("Please login using Job Seeker portal");
+                  })
+                  .catch((error) => {
+                    rejectLogout("Please login using Job Seeker portal");
+                  });
+              });
+            
+            setRole(role);
            // console.log(user);
-            resolve(true)
+            resolve("old")
             // ...
-            }).catch((error) => {
+            }}).catch((error) => {
             // Handle errors here
            reject(error);
             });
@@ -79,8 +122,26 @@ export const AuthContextProvider = ({ children }) => {
          }
      }, [user])
 
+     async function rolefetching(){
+        if(user.uid){
+        const role = await checkRole(user.uid);
+        }
+        setRole(role);
+     }
+        useEffect(() => {   
+            if(user!==null)
+                rolefetching();
+            
+            
+        }, [user])
+
+        // useEffect(() => {
+        //     if(role==="jobseekers")
+        //         logoutUser();
+        // }, [role])
+
     return (
-        <UserContext.Provider value={{ createUser ,loginUser,logoutUser,loginGoogle,user}}>
+        <UserContext.Provider value={{ createUser ,loginUser,logoutUser,loginGoogle,user,role}}>
             {children}
         </UserContext.Provider>
     );
