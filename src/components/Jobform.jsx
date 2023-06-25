@@ -185,6 +185,11 @@ const Form = () => {
               label="Disability Category"
               value={disabilityCategory}
               onChange={(e) => setDisabilityCategory(e.target.value)}
+              MenuProps={{ 
+                style: {
+                  maxHeight: 250,
+                },
+              }} 
             >
               <MenuItem value={"Blindness"}>Blindness</MenuItem>
               <MenuItem value={"Low-vision"}>Low-vision</MenuItem>
