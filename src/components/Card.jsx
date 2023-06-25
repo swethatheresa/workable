@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Card,
   CardContent,
@@ -17,10 +17,18 @@ import {Edit as EditIcon} from '@mui/icons-material';
 import {Delete as DeleteIcon} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { deleteJobDetails } from '../services/JobDetails';
+import { getCountOfApplicants } from '../services/Applicants';
 
 const CardExample = (props) => {
   const theme = useTheme();
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [countOfApplicants, setCountOfApplicants] = useState(0);
+
+  useEffect(() => {
+    getCountOfApplicants(props.id).then((res) => {
+      setCountOfApplicants(res);
+    });
+  }, []);
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -145,7 +153,7 @@ const CardExample = (props) => {
         <Grid container justifyContent="space-between" alignItems={'center'} marginTop={2}>
           <Grid item flexDirection={'row'} display={'flex'} justifyContent="center" alignItems={'center'} sx={{cursor:'pointer'}} onClick={()=>handleViewPosting()}>
             <Typography variant="h4">
-                {props.numberofapplicants}
+                {countOfApplicants}
               </Typography>
             <Typography variant="body2" marginLeft={0.5}>
               applicants
