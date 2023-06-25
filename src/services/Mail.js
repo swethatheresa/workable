@@ -10,7 +10,7 @@ const sendEmail = (tomail,role,company) => {
   console.log(emailData);
 
   axios
-    .post('http://localhost:3000/send-email', emailData)
+    .post('https://workable-mailservice.vercel.app/send-email', emailData)
     .then((response) => {
       console.log(response.data); // Success response from the server
     })
@@ -29,7 +29,7 @@ const sendEmailReject = (tomail,role,company) => {
   console.log(emailData);
 
   axios
-    .post('http://localhost:3000/reject-email', emailData)
+    .post('https://workable-mailservice.vercel.app/reject-email', emailData)
     .then((response) => {
       console.log(response.data); // Success response from the server
     })
