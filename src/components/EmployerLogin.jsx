@@ -10,6 +10,7 @@ import { useState } from 'react';
 import {  UserAuth } from '../context/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
@@ -20,6 +21,13 @@ const EmployerLogin = () => {
     const {createUser,loginUser,loginGoogle} = UserAuth();
     const [loginError, setLoginError] = useState("");
     const navigate = useNavigate();
+    const [wrong,setWrong] = useState(false);
+
+    useEffect(() => {
+        if(wrong){
+            setLoginError("Invalid Account, Please use Job Seeker portal.");
+        }
+    }, [wrong])
 
     const handleSignup = async(e) => {
         setLoginError("");
@@ -50,19 +58,33 @@ const EmployerLogin = () => {
                 }
 
             })
-            .catch((error) => {
+            .catch((error) => {setWrong(true);
             console.log(error.code);
+            if(error.code=== null)
+            setLoginError(error);
+            else
             setLoginError(error.code);
             });
       };
     const handleGoogle = async(e) => {
         e.preventDefault();
        loginGoogle().then((loggedIn) => {
-        if(loggedIn)
+        
+        if(loggedIn==="new")
           {   
-              navigate('/postings');
+              navigate('/companyform');
           }
-        })
+          else if(loggedIn==="old")
+          {
+                navigate('/postings');
+          }
+        }).catch((error) => {setWrong(true);
+            console.log(error.code);
+            if(error.code=== null)
+            setLoginError(error);
+            else
+            setLoginError(error.code);
+            });
     }
   return (
     <Grid container overflow={'auto'} >

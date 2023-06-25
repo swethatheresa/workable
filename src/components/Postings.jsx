@@ -12,8 +12,7 @@ const Postings = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const { user } = UserAuth();
-
+  const { user ,role} = UserAuth();
   const fetchInitialData = async () => {
     setLoading(true);
     if (user) {
@@ -21,6 +20,7 @@ const Postings = () => {
       setResults(initialResults);
       setLastDocument(lastDocument);
     }
+    
   };
 
   const handleSearch = async () => {
@@ -36,6 +36,7 @@ const Postings = () => {
   };
 
   useEffect(() => {
+    if(user)
     fetchInitialData();
   }, [user]);
 
