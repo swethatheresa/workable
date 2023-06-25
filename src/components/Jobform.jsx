@@ -27,7 +27,6 @@ const Form = () => {
   const [jobDescription, setJobDescription] = useState('');
   const [workMode, setWorkMode] = useState('');
   const [editPost , setEditPost] = useState(false);
-  const [testdate, setTestdate] = useState('');
   const {user} = UserAuth();
   const navigate = useNavigate();
   //check if params are passed
@@ -85,7 +84,6 @@ const Form = () => {
       qualification,
       jobDescription,
       workMode,
-      testdate
     }
     if(!editPost)
       await addJobDetails(job,user);
@@ -313,6 +311,7 @@ const Form = () => {
               value={qualification}
               onChange={(e) => setQualification(e.target.value)}
             >
+              <MenuItem value={"-"}>-</MenuItem>
               <MenuItem value={"Higher Secondary Education"}>Higher Secondary Education</MenuItem>
               <MenuItem value={"Diploma"}>Diploma</MenuItem>
               <MenuItem value={"Bachelor's Degree"}>Bachelor's Degree</MenuItem>

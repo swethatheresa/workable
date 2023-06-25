@@ -7,12 +7,20 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CustomTable from './CustomTable';
 import { useParams } from 'react-router-dom';
+import { fetchDocument } from '../services/JobPostings';
 
 const CandidateTable = () => {
     const [value, setValue] = useState('1');
+    const [JobTitle, setJobTitle] = useState('');
     const handleChange = (event, newValue) => {
         setValue(newValue);
       };
+    useEffect(() => {
+        fetchDocument(route.id).then((res) => {
+            setJobTitle(res.JobTitle);
+        })
+    }, [])
+
     const route = useParams();
     return (
         <Grid container flexDirection={'column'} overflow={'auto'}
@@ -25,7 +33,14 @@ const CandidateTable = () => {
                 },
         
         }}>
-            <Typography variant="heading1" color={theme.palette.primary.darker}sx={{ fontWeight: 'bold'}}>Candidates</Typography>
+            <Typography variant="heading1" color={theme.palette.primary.darker}
+            sx={{ 
+                fontWeight: 'bold',
+                [theme.breakpoints.down('md')]: {
+                    fontSize: '1.5rem',
+                }
+            }}> 
+            Candidates {JobTitle && `for position ${JobTitle}`}</Typography>
             <Grid container flexDirection={'column'} 
             sx={{
                 backgroundColor: '#FFFFFF',
@@ -33,6 +48,18 @@ const CandidateTable = () => {
                 borderRadius: '9px',
                 p: '2rem',
                 mt: '2rem',
+                [theme.breakpoints.down('md')]: {
+                    mt: '1.5rem',
+                    p: '1rem',
+                },
+                [theme.breakpoints.down('sm')]: {
+                    mt: '-1rem',
+                    p: '0rem',
+                },
+                [theme.breakpoints.down('xs')]: {
+                    mt: '-2.5rem',
+                    p: '0rem',
+                },
             }}
         >
             <TabContext value={value} flexDirection={'column'}>

@@ -28,7 +28,7 @@ const theme = createTheme({
       fontFamily: 'Inter, Roboto, sans-serif',
       heading1: {
         color: '#2a2a2a',
-        fontSize: '2rem',
+        fontSize: '1.7rem',
       },
       heading2: {
         color: '#767676',
